@@ -1,0 +1,24 @@
+{
+  "name": "election-2016",
+  "version": "1.0.0",
+  "description": "2016 U.S. election change in votes from 2012.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekenes/election-2016.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ekenes/election-2016/issues"
+  },
+  "homepage": "https://github.com/ekenes/election-2016#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/arcgis-js-api": "http://jscore.esri.com/javascript/latest/api-reference/typings/arcgis-js-api-4.17.tgz"
+  }
+}
