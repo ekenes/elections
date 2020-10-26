@@ -15,7 +15,9 @@ define(["require", "exports", "esri/Color"], function (require, exports, Color) 
     function setUrlParams(year) {
         window.history.pushState("", "", window.location.pathname + "?year=" + year);
     }
+    exports.setUrlParams = setUrlParams;
     var year = getUrlParams();
+    var yearSelect = document.getElementById("year-select");
     if (!year) {
         year = 2016;
         setUrlParams(year);
@@ -26,6 +28,7 @@ define(["require", "exports", "esri/Color"], function (require, exports, Color) 
             year = 2016;
             setUrlParams(year);
         }
+        yearSelect.value = year.toString();
     }
     exports.basemapPortalItem = "fbfb62f3599f41e5a77845f863e2872f";
     exports.statesLayerPortalItem = "6ad91dac96784d00900f90b03924028c";
@@ -232,8 +235,95 @@ define(["require", "exports", "esri/Color"], function (require, exports, Color) 
         { value: 5, size: 25 },
         { value: 30, size: 40 }
     ];
-    function setConfigFromYear(year) {
+    function setSelectedYear(year) {
+        exports.selectedYear = year;
+        exports.years = {
+            previous: exports.selectedYear - 4,
+            next: exports.selectedYear
+        };
+        exports.fieldInfos = {
+            title: {
+                state: "{state}",
+                county: "{county} County, {state}"
+            },
+            democrat: {
+                county: {
+                    previous: {
+                        name: "dem_" + exports.years.previous,
+                        label: exports.years.previous + " Democrat votes"
+                    },
+                    next: {
+                        name: "dem_" + exports.years.next,
+                        label: exports.years.next + " Democrat votes"
+                    },
+                },
+                state: {
+                    previous: {
+                        name: "SUM_dem_" + exports.years.previous,
+                        label: exports.years.previous + " Democrat votes"
+                    },
+                    next: {
+                        name: "SUM_dem_" + exports.years.next,
+                        label: exports.years.next + " Democrat votes"
+                    }
+                }
+            },
+            republican: {
+                county: {
+                    previous: {
+                        name: "rep_" + exports.years.previous,
+                        label: exports.years.previous + " Republican votes"
+                    },
+                    next: {
+                        name: "rep_" + exports.years.next,
+                        label: exports.years.next + " Republican votes"
+                    }
+                },
+                state: {
+                    previous: {
+                        name: "SUM_rep_" + exports.years.previous,
+                        label: exports.years.previous + " Republican votes"
+                    },
+                    next: {
+                        name: "SUM_rep_" + exports.years.next,
+                        label: exports.years.next + " Republican votes"
+                    }
+                }
+            },
+            other: {
+                county: {
+                    previous: {
+                        name: "oth_" + exports.years.previous,
+                        label: exports.years.previous + " Other votes"
+                    },
+                    next: {
+                        name: "oth_" + exports.years.next,
+                        label: exports.years.next + " Other votes"
+                    }
+                },
+                state: {
+                    previous: {
+                        name: "SUM_oth_" + exports.years.previous,
+                        label: exports.years.previous + " Other votes"
+                    },
+                    next: {
+                        name: "SUM_oth_" + exports.years.next,
+                        label: exports.years.next + " Other votes"
+                    }
+                }
+            },
+            normalizationFields: {
+                county: {
+                    previous: "TOTAL_STATE_VOTES_" + exports.years.previous,
+                    next: "TOTAL_STATE_VOTES_" + exports.years.next
+                },
+                state: {
+                    previous: "",
+                    next: ""
+                }
+            }
+        };
     }
-    exports.setConfigFromYear = setConfigFromYear;
+    exports.setSelectedYear = setSelectedYear;
 });
 //# sourceMappingURL=config.js.map

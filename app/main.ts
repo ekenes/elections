@@ -3,8 +3,9 @@ import MapView = require("esri/views/MapView");
 import FeatureLayer = require("esri/layers/FeatureLayer");
 import Swipe = require("esri/widgets/Swipe");
 import Legend = require("esri/widgets/Legend");
+import Expand = require("esri/widgets/Expand");
 
-import { referenceScale, maxScale, scaleThreshold, basemapPortalItem, statesLayerPortalItem, countiesLayerPortalItem, years } from "./config";
+import { referenceScale, maxScale, scaleThreshold, basemapPortalItem, statesLayerPortalItem, countiesLayerPortalItem, years, setSelectedYear, setUrlParams } from "./config";
 import { statePopupTemplate, countyPopupTemplate } from "./popupUtils";
 import { countyChangeLabelingInfo, countyResultsLabelingInfo, stateChangeLabelingInfo, stateResultsLabelingInfo } from "./labelingUtils";
 import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, stateElectoralResultsRenderer, stateResultsRenderer, swingStateRenderer } from "./rendererUtils";
@@ -27,7 +28,8 @@ import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, state
     constraints: {
       minScale: 0,
       maxScale,
-      snapToZoom: false
+      snapToZoom: false,
+      rotationEnabled: false
     },
     highlightOptions: {
       fillOpacity: 0
@@ -43,78 +45,93 @@ import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, state
     }
   });
 
-  const stateElectoralResultsLayer = new FeatureLayer({
-    portalItem: {
-      id: statesLayerPortalItem
-    },
-    title: `Results by state`,
-    opacity: 0.2,
-    renderer: stateElectoralResultsRenderer,
-    popupTemplate: statePopupTemplate,
-    popupEnabled: false
-  });
+  const commonLayerOptions = {
+    outFields: ["*"]
+  };
 
-  const swingStatesLayer = new FeatureLayer({
-    portalItem: {
-      id: statesLayerPortalItem
-    },
-    title: `Swing states`,
-    opacity: 0.2,
-    renderer: swingStateRenderer,
-    popupTemplate: statePopupTemplate,
-    popupEnabled: false
-  });
+  const stateElectoralResultsLayer = new FeatureLayer(commonLayerOptions);
+  const swingStatesLayer = new FeatureLayer(commonLayerOptions);
+  const countyChangeLayer = new FeatureLayer(commonLayerOptions);
+  const countyResultsLayer = new FeatureLayer(commonLayerOptions);
+  const stateChangeLayer = new FeatureLayer(commonLayerOptions);
+  const stateResultsLayer = new FeatureLayer(commonLayerOptions);
 
+  function updateLayers(){
 
-  const countyChangeLayer = new FeatureLayer({
-    minScale: scaleThreshold,
-    portalItem: {
-      id: countiesLayerPortalItem
-    },
-    legendEnabled: false,
-    renderer: countyChangeRenderer,
-    labelsVisible: true,
-    labelingInfo: countyChangeLabelingInfo,
-    popupTemplate: countyPopupTemplate
-  });
+    stateElectoralResultsLayer.set({
+      portalItem: {
+        id: statesLayerPortalItem
+      },
+      title: `Results by state`,
+      opacity: 0.2,
+      renderer: stateElectoralResultsRenderer(),
+      popupTemplate: statePopupTemplate(),
+      popupEnabled: false
+    });
 
-  const countyResultsLayer = new FeatureLayer({
-    minScale: scaleThreshold,
-    portalItem: {
-      id: countiesLayerPortalItem
-    },
-    legendEnabled: false,
-    renderer: countyResultsRenderer,
-    labelsVisible: true,
-    labelingInfo: countyResultsLabelingInfo,
-    popupTemplate: countyPopupTemplate
-  });
+    swingStatesLayer.set({
+      portalItem: {
+        id: statesLayerPortalItem
+      },
+      title: `Swing states`,
+      opacity: 0.2,
+      renderer: swingStateRenderer(),
+      popupTemplate: statePopupTemplate(),
+      popupEnabled: false
+    });
 
-  const stateChangeLayer = new FeatureLayer({
-    maxScale: scaleThreshold,
-    portalItem: {
-      id: statesLayerPortalItem
-    },
-    opacity: 1,
-    legendEnabled: false,
-    renderer: stateChangeRenderer,
-    labelsVisible: true,
-    labelingInfo: stateChangeLabelingInfo,
-    popupTemplate: statePopupTemplate
-  });
+    countyChangeLayer.set({
+      minScale: scaleThreshold,
+      portalItem: {
+        id: countiesLayerPortalItem
+      },
+      legendEnabled: false,
+      renderer: countyChangeRenderer(),
+      labelsVisible: true,
+      labelingInfo: countyChangeLabelingInfo(),
+      popupTemplate: countyPopupTemplate()
+    });
 
-  const stateResultsLayer = new FeatureLayer({
-    maxScale: scaleThreshold,
-    portalItem: {
-      id: statesLayerPortalItem
-    },
-    opacity: 1,
-    legendEnabled: false,
-    renderer: stateResultsRenderer,
-    labelsVisible: true,
-    labelingInfo: stateResultsLabelingInfo,
-    popupTemplate: statePopupTemplate
-  });
+    countyResultsLayer.set({
+      minScale: scaleThreshold,
+      portalItem: {
+        id: countiesLayerPortalItem
+      },
+      legendEnabled: false,
+      renderer: countyResultsRenderer(),
+      labelsVisible: true,
+      labelingInfo: countyResultsLabelingInfo(),
+      popupTemplate: countyPopupTemplate()
+    });
+
+    stateChangeLayer.set({
+      maxScale: scaleThreshold,
+      portalItem: {
+        id: statesLayerPortalItem
+      },
+      opacity: 1,
+      legendEnabled: false,
+      renderer: stateChangeRenderer(),
+      labelsVisible: true,
+      labelingInfo: stateChangeLabelingInfo(),
+      popupTemplate: statePopupTemplate()
+    });
+
+    stateResultsLayer.set({
+      maxScale: scaleThreshold,
+      portalItem: {
+        id: statesLayerPortalItem
+      },
+      opacity: 1,
+      legendEnabled: false,
+      renderer: stateResultsRenderer(),
+      labelsVisible: true,
+      labelingInfo: stateResultsLabelingInfo(),
+      popupTemplate: statePopupTemplate()
+    });
+  }
+
+  updateLayers();
 
   view.map.add(stateElectoralResultsLayer);
   view.map.add(swingStatesLayer);
@@ -150,7 +167,6 @@ import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, state
       layer: swingStatesLayer
     }] as any
   });
-  view.ui.add(`change-legend`, `bottom-left`);
 
   new Legend({
     view,
@@ -162,6 +178,26 @@ import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, state
 
   view.ui.add(changeLegend, `bottom-left`);
   view.ui.add(totalLegend, `bottom-right`);
+
+  const yearSelect = document.getElementById("year-select") as HTMLSelectElement;
+  view.ui.add(new Expand({
+    view,
+    content: document.getElementById(`select-parent`),
+    expandIconClass: "esri-icon-time-clock"
+  }), `top-left`);
+
+  yearSelect.addEventListener("change", () => {
+    const year = parseInt(yearSelect.value);
+
+    startYearChangeSpan.innerHTML = (year - 4).toString();
+    endYearChangeSpan.innerHTML = year.toString();
+    endYearTotalSpan.innerHTML = year.toString();
+
+    setUrlParams(year)
+    setSelectedYear(year);
+    updateLayers();
+  });
+
   view.ui.add(infoToggle, `top-left`);
 
   let visibilityEnabled = true;

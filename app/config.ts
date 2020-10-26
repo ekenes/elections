@@ -21,11 +21,12 @@ function getUrlParams() {
 }
 
 // function to set an id as a url param
-function setUrlParams(year: UrlParams["year"]) {
+export function setUrlParams(year: UrlParams["year"]) {
   window.history.pushState("", "", `${window.location.pathname}?year=${year}`);
 }
 
 let year = getUrlParams();
+const yearSelect = document.getElementById("year-select") as HTMLSelectElement;
 
 if(!year){
   year = 2016;
@@ -36,6 +37,7 @@ if(!year){
     year = 2016;
     setUrlParams(year);
   }
+  yearSelect.value = year.toString();
 }
 
 export const basemapPortalItem = "fbfb62f3599f41e5a77845f863e2872f";
@@ -47,9 +49,9 @@ export const referenceScale = 2311162;
 export const scaleThreshold = 9244600;  // 9244649;
 export const stateReferenceScale = 18489200;
 
-export const selectedYear = year;
+export let selectedYear = year;
 
-export const years = {
+export let years = {
   previous: selectedYear - 4,
   next: selectedYear
 };
@@ -127,7 +129,7 @@ export const results = {
   }
 }
 
-export const fieldInfos = {
+export let fieldInfos = {
   title: {
     state: `{state}`,
     county: `{county} County, {state}`
@@ -260,6 +262,94 @@ export const countySizeStops = [
   { value: 30, size: 40 }
 ];
 
-export function setConfigFromYear(year: ){
+export function setSelectedYear(year: UrlParams["year"]) {
+  selectedYear = year;
 
+  years = {
+    previous: selectedYear - 4,
+    next: selectedYear
+  };
+
+  fieldInfos = {
+    title: {
+      state: `{state}`,
+      county: `{county} County, {state}`
+    },
+    democrat: {
+      county: {
+        previous: {
+          name: `dem_${years.previous}`,
+          label: `${years.previous} Democrat votes`
+        },
+        next: {
+          name: `dem_${years.next}`,
+          label: `${years.next} Democrat votes`
+        },
+      },
+      state: {
+        previous: {
+          name: `SUM_dem_${years.previous}`,
+          label: `${years.previous} Democrat votes`
+        },
+        next: {
+          name: `SUM_dem_${years.next}`,
+          label: `${years.next} Democrat votes`
+        }
+      }
+    },
+    republican: {
+      county: {
+        previous: {
+          name: `rep_${years.previous}`,
+          label: `${years.previous} Republican votes`
+        },
+        next: {
+          name: `rep_${years.next}`,
+          label: `${years.next} Republican votes`
+        }
+      },
+      state: {
+        previous: {
+          name: `SUM_rep_${years.previous}`,
+          label: `${years.previous} Republican votes`
+        },
+        next: {
+          name: `SUM_rep_${years.next}`,
+          label: `${years.next} Republican votes`
+        }
+      }
+    },
+    other: {
+      county: {
+        previous: {
+          name: `oth_${years.previous}`,
+          label: `${years.previous} Other votes`
+        },
+        next: {
+          name: `oth_${years.next}`,
+          label: `${years.next} Other votes`
+        }
+      },
+      state: {
+        previous: {
+          name: `SUM_oth_${years.previous}`,
+          label: `${years.previous} Other votes`
+        },
+        next: {
+          name: `SUM_oth_${years.next}`,
+          label: `${years.next} Other votes`
+        }
+      }
+    },
+    normalizationFields: {
+      county: {
+        previous: `TOTAL_STATE_VOTES_${years.previous}`,
+        next: `TOTAL_STATE_VOTES_${years.next}`
+      },
+      state: {
+        previous: ``,
+        next: ``
+      }
+    }
+  };
 }

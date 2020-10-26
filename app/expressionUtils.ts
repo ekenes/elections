@@ -1,18 +1,22 @@
 import { countySizeStops, fieldInfos, referenceScale, stateChangeSizeStops, stateReferenceScale, stateResultsSizeStops } from "./config";
 
-export const votesStateNextBase = `
-  var dem = $feature.${fieldInfos.democrat.state.next.name};
-  var rep = $feature.${fieldInfos.republican.state.next.name};
-  var oth = $feature.${fieldInfos.other.state.next.name};
-  var all = [dem, rep, oth];
-`;
+export const votesStateNextBase = () => {
+  return `
+    var dem = $feature.${fieldInfos.democrat.state.next.name};
+    var rep = $feature.${fieldInfos.republican.state.next.name};
+    var oth = $feature.${fieldInfos.other.state.next.name};
+    var all = [dem, rep, oth];
+  `
+};
 
-export const votesCountyNextBase = `
-  var dem = $feature.${fieldInfos.democrat.county.next.name};
-  var rep = $feature.${fieldInfos.republican.county.next.name};
-  var oth = $feature.${fieldInfos.other.county.next.name};
-  var all = [dem, rep, oth];
-`;
+export const votesCountyNextBase = () => {
+  return `
+    var dem = $feature.${fieldInfos.democrat.county.next.name};
+    var rep = $feature.${fieldInfos.republican.county.next.name};
+    var oth = $feature.${fieldInfos.other.county.next.name};
+    var all = [dem, rep, oth];
+  `
+};
 
 export const diffTextBase = `
   var diff = votesNext - votesPrevious;
@@ -30,7 +34,7 @@ export const colorDiffPopupBase = `
 export const diffLabelText = `
   var change = valueNext - valuePrevious;
   IIF(change > 0, Text(change, '+#,###'), Text(change, '#,###'));
-`
+`;
 
 // states change layer renderer expressions
 
