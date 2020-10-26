@@ -1,5 +1,43 @@
 import Color = require("esri/Color");
 
+
+// function to retrieve query parameters (in this case only id)
+interface UrlParams {
+  year?: 2004 | 2008 | 2012 | 2016 | number,
+}
+
+const validYears = [ 2000, 2004, 2008, 2012, 2016 ];
+
+function getUrlParams() {
+  const queryParams = document.location.search.substr(1);
+  let result: UrlParams = {};
+
+  queryParams.split("&").forEach(function(part) {
+    var item = part.split("=");
+    result[item[0]] = parseInt(decodeURIComponent(item[1]));
+  });
+
+  return result.year;
+}
+
+// function to set an id as a url param
+function setUrlParams(year: UrlParams["year"]) {
+  window.history.pushState("", "", `${window.location.pathname}?year=${year}`);
+}
+
+let year = getUrlParams();
+
+if(!year){
+  year = 2016;
+  setUrlParams(year);
+} else {
+  if ( year && validYears.indexOf(year) === -1 ){
+    alert("You must enter a valid U.S. presidential election year (e.g. 2004, 2008, 20012, 2016)")
+    year = 2016;
+    setUrlParams(year);
+  }
+}
+
 export const basemapPortalItem = "fbfb62f3599f41e5a77845f863e2872f";
 export const statesLayerPortalItem = "6ad91dac96784d00900f90b03924028c";
 export const countiesLayerPortalItem = "eeedc75c82f24ca49ccaf824665a10d0";
@@ -9,7 +47,7 @@ export const referenceScale = 2311162;
 export const scaleThreshold = 9244600;  // 9244649;
 export const stateReferenceScale = 18489200;
 
-export const selectedYear = 2016;
+export const selectedYear = year;
 
 export const years = {
   previous: selectedYear - 4,
@@ -222,6 +260,6 @@ export const countySizeStops = [
   { value: 30, size: 40 }
 ];
 
-export function setConfigFromYear(year: 2004 | 2008 | 2012 | 2016){
+export function setConfigFromYear(year: ){
 
 }

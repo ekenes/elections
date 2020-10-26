@@ -1,6 +1,32 @@
 define(["require", "exports", "esri/Color"], function (require, exports, Color) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var validYears = [2000, 2004, 2008, 2012, 2016];
+    function getUrlParams() {
+        var queryParams = document.location.search.substr(1);
+        var result = {};
+        queryParams.split("&").forEach(function (part) {
+            var item = part.split("=");
+            result[item[0]] = parseInt(decodeURIComponent(item[1]));
+        });
+        return result.year;
+    }
+    // function to set an id as a url param
+    function setUrlParams(year) {
+        window.history.pushState("", "", window.location.pathname + "?year=" + year);
+    }
+    var year = getUrlParams();
+    if (!year) {
+        year = 2016;
+        setUrlParams(year);
+    }
+    else {
+        if (year && validYears.indexOf(year) === -1) {
+            alert("You must enter a valid U.S. presidential election year (e.g. 2004, 2008, 20012, 2016)");
+            year = 2016;
+            setUrlParams(year);
+        }
+    }
     exports.basemapPortalItem = "fbfb62f3599f41e5a77845f863e2872f";
     exports.statesLayerPortalItem = "6ad91dac96784d00900f90b03924028c";
     exports.countiesLayerPortalItem = "eeedc75c82f24ca49ccaf824665a10d0";
@@ -8,7 +34,7 @@ define(["require", "exports", "esri/Color"], function (require, exports, Color) 
     exports.referenceScale = 2311162;
     exports.scaleThreshold = 9244600; // 9244649;
     exports.stateReferenceScale = 18489200;
-    exports.selectedYear = 2016;
+    exports.selectedYear = year;
     exports.years = {
         previous: exports.selectedYear - 4,
         next: exports.selectedYear

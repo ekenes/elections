@@ -10,6 +10,7 @@ import { countyChangeLabelingInfo, countyResultsLabelingInfo, stateChangeLabelin
 import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, stateElectoralResultsRenderer, stateResultsRenderer, swingStateRenderer } from "./rendererUtils";
 
 ( async () => {
+
   const map = new EsriMap({
     basemap: {
       portalItem: {
