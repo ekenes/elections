@@ -245,9 +245,9 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                         config_1.setUrlParams(year);
                         config_1.setSelectedYear(year);
                         updateLayers();
-                        setTimeout(function () {
-                            yearSelectExpand.expanded = false;
-                        }, 2000);
+                        // setTimeout( () => {
+                        //   yearSelectExpand.expanded = false;
+                        // }, 2000);
                     });
                     view.ui.add(infoToggle, "top-left");
                     visibilityEnabled = true;

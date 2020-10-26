@@ -198,9 +198,9 @@ import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, state
     setSelectedYear(year);
     updateLayers();
 
-    setTimeout( () => {
-      yearSelectExpand.expanded = false;
-    }, 2000);
+    // setTimeout( () => {
+    //   yearSelectExpand.expanded = false;
+    // }, 2000);
   });
 
   view.ui.add(infoToggle, `top-left`);
