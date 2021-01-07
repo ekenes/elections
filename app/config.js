@@ -1,7 +1,7 @@
 define(["require", "exports", "esri/Color"], function (require, exports, Color) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var validYears = [2000, 2004, 2008, 2012, 2016];
+    var validYears = [2000, 2004, 2008, 2012, 2016, 2020];
     function getUrlParams() {
         var queryParams = document.location.search.substr(1);
         var result = {};
@@ -19,20 +19,20 @@ define(["require", "exports", "esri/Color"], function (require, exports, Color) 
     var year = getUrlParams();
     var yearSelect = document.getElementById("year-select");
     if (!year) {
-        year = 2016;
+        year = 2020;
         setUrlParams(year);
     }
     else {
         if (year && validYears.indexOf(year) === -1) {
             alert("You must enter a valid U.S. presidential election year (e.g. 2004, 2008, 20012, 2016)");
-            year = 2016;
+            year = 2020;
             setUrlParams(year);
         }
         yearSelect.value = year.toString();
     }
     exports.basemapPortalItem = "fbfb62f3599f41e5a77845f863e2872f";
-    exports.statesLayerPortalItem = "6ad91dac96784d00900f90b03924028c";
-    exports.countiesLayerPortalItem = "eeedc75c82f24ca49ccaf824665a10d0";
+    exports.statesLayerPortalItem = "f2825b56dfc14bb892604637dab45104";
+    exports.countiesLayerPortalItem = "fe9e032e4a854c74890750214a3edd8b";
     exports.maxScale = 4622324 / 16;
     exports.referenceScale = 2311162;
     exports.scaleThreshold = 9244600; // 9244649;
@@ -107,6 +107,20 @@ define(["require", "exports", "esri/Color"], function (require, exports, Color) 
             democrat: {
                 candidate: "Clinton",
                 electoralVotes: 227
+            },
+            other: {
+                candidate: "Another candidate",
+                electoralVotes: 0
+            }
+        },
+        2020: {
+            republican: {
+                candidate: "Trump",
+                electoralVotes: 232
+            },
+            democrat: {
+                candidate: "Biden",
+                electoralVotes: 306
             },
             other: {
                 candidate: "Another candidate",

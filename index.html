@@ -2,8 +2,8 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
-    <title>2016 Election (change in votes from 2012)</title>
-    <link rel="stylesheet" href="https://js.arcgis.com/4.17/esri/css/main.css">
+    <title>U.S. Presidential Elections (2000-2020)</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.18/esri/css/main.css">
     <link rel="stylesheet" href="app/main.css">
     <script>
       var locationPath = location.pathname.replace(/\/[^\/]+$/, "");
@@ -16,13 +16,13 @@
         ]
       };
     </script>
-    <script src="https://js.arcgis.com/4.17/"></script>
+    <script src="https://js.arcgis.com/4.18/"></script>
   </head>
   <body>
     <div id="viewDiv"></div>
     <div id="change-legend" class="esri-widget legend-containers">
       <div class="heading">
-        Change in U.S. presidential voting behavior from <br><span id="start-year-change">2012</span>-<span id="end-year-change">2016</span>
+        Change in U.S. presidential voting behavior from <br><span id="start-year-change">2016</span>-<span id="end-year-change">2020</span>
       </div>
       <div class="subheading">
         Votes gained or lost
@@ -49,7 +49,7 @@
 
     <div id="total-legend" class="esri-widget legend-containers">
       <div class="heading">
-        <span id="end-year-total">2016</span> U.S. presidential votes per party
+        <span id="end-year-total">2020</span> U.S. presidential votes per party
       </div>
       <div class="subheading">
         Results by county/state
@@ -71,6 +71,7 @@
     <div id="select-parent" class="esri-widget">
       Select an election year
       <select id="year-select">
+        <option value=2020>2020</option>
         <option value=2016>2016</option>
         <option value=2012>2012</option>
         <option value=2008>2008</option>
