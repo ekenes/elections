@@ -196,7 +196,12 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                             xsmall: 544
                         },
                         popup: {
-                            collapseEnabled: false
+                            collapseEnabled: false,
+                            dockEnabled: true,
+                            dockOptions: {
+                                breakpoint: false,
+                                position: "bottom-right"
+                            }
                         }
                     });
                     commonLayerOptions = {

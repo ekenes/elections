@@ -41,7 +41,12 @@ import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, state
       xsmall: 544
     },
     popup: {
-      collapseEnabled: false
+      collapseEnabled: false,
+      dockEnabled: true,
+      dockOptions: {
+        breakpoint: false,
+        position: "bottom-right"
+      }
     }
   });
 
