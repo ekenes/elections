@@ -3,7 +3,7 @@ import Color = require("esri/Color");
 import Font = require("esri/symbols/Font");
 
 import { TextSymbol } from "esri/symbols";
-import { fieldInfos, dColor, rColor, oTextColor, haloColor, haloSize } from "./config";
+import { fieldInfos, dColor, rColor, oColor, haloColor, haloSize } from "./config";
 import {  diffLabelText } from "./expressionUtils";
 
 ////////////////////////////////////////////////////
@@ -283,7 +283,7 @@ export const stateChangeLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 20,
         yoffset: 30
       })
@@ -307,7 +307,7 @@ export const stateChangeLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 20,
         yoffset: 30
       })
@@ -333,7 +333,7 @@ export const stateChangeLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 20,
         yoffset: 20
       })
@@ -360,7 +360,7 @@ export const stateChangeLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 20,
         yoffset: 15
       })
@@ -386,7 +386,7 @@ export const stateChangeLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 10,
         yoffset: 10
       })
@@ -649,7 +649,7 @@ export const stateResultsLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 20,
         yoffset: 35
       })
@@ -671,7 +671,7 @@ export const stateResultsLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 30,
         yoffset: 30
       })
@@ -695,7 +695,7 @@ export const stateResultsLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 20,
         yoffset: 25
       })
@@ -720,7 +720,7 @@ export const stateResultsLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 20,
         yoffset: 15
       })
@@ -744,7 +744,7 @@ export const stateResultsLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 1,
         yoffset: 15
       })
@@ -1019,7 +1019,7 @@ export const countyResultsLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 30,
         yoffset: 40
       })
@@ -1042,7 +1042,7 @@ export const countyResultsLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 30,
         yoffset: 40
       })
@@ -1067,7 +1067,7 @@ export const countyResultsLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 30,
         yoffset: 35
       })
@@ -1093,7 +1093,7 @@ export const countyResultsLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 20,
         yoffset: 30
       })
@@ -1118,7 +1118,7 @@ export const countyResultsLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 15,
         yoffset: 18
       })
@@ -1415,7 +1415,7 @@ export const countyChangeLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 30,
         yoffset: 40
       })
@@ -1440,7 +1440,7 @@ export const countyChangeLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 30,
         yoffset: 40
       })
@@ -1467,7 +1467,7 @@ export const countyChangeLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 30,
         yoffset: 35
       })
@@ -1495,7 +1495,7 @@ export const countyChangeLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 20,
         yoffset: 30
       })
@@ -1522,7 +1522,7 @@ export const countyChangeLabelingInfo = () => {
         }),
         haloColor: new Color(haloColor),
         haloSize,
-        color: new Color(oTextColor),
+        color: new Color(oColor),
         xoffset: 15,
         yoffset: 18
       })

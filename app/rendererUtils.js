@@ -83,9 +83,6 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                                 anchorPoint: { x: 0, y: -0.75 },
                                 color: config_1.oColorCIM,
                                 donutEnabled: false,
-                                outline: {
-                                    color: config_1.oTextColorCIM
-                                }
                             })
                         ]
                     },
@@ -170,9 +167,6 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                                 anchorPoint: { x: 0, y: -0.75 },
                                 color: config_1.oColorCIM,
                                 donutEnabled: false,
-                                outline: {
-                                    color: config_1.oTextColorCIM
-                                }
                             }),
                             symbolUtils_1.createCircleSymbolLayer({
                                 primitiveName: "other-negative-votes",
@@ -284,9 +278,6 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                                 anchorPoint: { x: 0, y: -0.75 },
                                 color: config_1.oColorCIM,
                                 donutEnabled: false,
-                                outline: {
-                                    color: config_1.oTextColorCIM
-                                }
                             })
                         ]
                     },
@@ -370,10 +361,7 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                                 primitiveName: "other-positive-votes",
                                 anchorPoint: { x: 0, y: -0.75 },
                                 color: config_1.oColorCIM,
-                                donutEnabled: false,
-                                outline: {
-                                    color: config_1.oTextColorCIM
-                                }
+                                donutEnabled: false
                             }),
                             symbolUtils_1.createCircleSymbolLayer({
                                 primitiveName: "other-negative-votes",

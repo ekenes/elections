@@ -213,14 +213,12 @@ define(["require", "exports", "esri/Color"], function (require, exports, Color) 
     // Renderer config
     exports.rColor = new Color("rgba(220, 75, 0, 1)");
     exports.dColor = new Color("rgba(60, 108, 204,1)");
-    exports.oColor = new Color("rgba(237, 218, 0, 1)");
-    exports.oTextColor = new Color("rgba(181, 166, 0, 1)");
+    exports.oColor = new Color("rgba(181, 166, 0, 1)");
     exports.haloColor = new Color("#f7f7f7");
     exports.haloSize = 1;
     exports.rColorCIM = exports.rColor.toJSON();
     exports.dColorCIM = exports.dColor.toJSON();
     exports.oColorCIM = exports.oColor.toJSON();
-    exports.oTextColorCIM = exports.oTextColor.toJSON();
     //////////////
     // size stops
     //////////////

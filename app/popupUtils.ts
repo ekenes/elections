@@ -4,7 +4,7 @@ import FieldInfo = require("esri/popup/FieldInfo");
 import FieldInfoFormat = require("esri/popup/support/FieldInfoFormat");
 
 import { TextContent } from "esri/popup/content";
-import { years, fieldInfos, dColor, rColor, oTextColor, oColor, results, selectedYear } from "./config";
+import { years, fieldInfos, dColor, rColor, oColor, results, selectedYear } from "./config";
 import { colorDiffPopupBase, votesCountyNextBase, votesStateNextBase, diffTextBase } from "./expressionUtils";
 
 ////////////////////////////////////////////////////
@@ -85,7 +85,7 @@ export const statePopupTemplate = () => {
               <tr class="head"><td>Party</td><td>Votes</td><td>+/-</td><td>% Change</td></tr>
               <tr class="dem"><td><span style='color:${dColor}; font-weight:bolder'>Democrat</span></td><td class="num">{${fieldInfos.democrat.state.next.name}}</td><td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}change${years.next}}</span></td></tr>
               <tr class="rep"><td><span style='color:${rColor}; font-weight:bolder'>Republican</span></td><td class="num">{${fieldInfos.republican.state.next.name}}</td><td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}change${years.next}}</span></td></tr>
-              <tr class="oth"><td><span style='color:${oTextColor}; font-weight:bolder'>Other</span></td><td class="num">{${fieldInfos.other.state.next.name}}</td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}change${years.next}}</span></td></tr>
+              <tr class="oth"><td><span style='color:${oColor}; font-weight:bolder'>Other</span></td><td class="num">{${fieldInfos.other.state.next.name}}</td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}change${years.next}}</span></td></tr>
             </table>
           </div>
         `
@@ -345,7 +345,7 @@ export const countyPopupTemplate = () => {
               <tr class="head"><td>Party</td><td>Votes</td><td>+/-</td><td>% Change</td></tr>
               <tr class="dem"><td><span style='color:${dColor}; font-weight:bolder'>Democrat</span></td><td class="num">{${fieldInfos.democrat.county.next.name}}</td><td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}change${years.next}}</span></td></tr>
               <tr class="rep"><td><span style='color:${rColor}; font-weight:bolder'>Republican</span></td><td class="num">{${fieldInfos.republican.county.next.name}}</td><td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}change${years.next}}</span></td></tr>
-              <tr class="oth"><td><span style='color:${oTextColor}; font-weight:bolder'>Other</span></td><td class="num">{${fieldInfos.other.county.next.name}}</td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}change${years.next}}</span></td></tr>
+              <tr class="oth"><td><span style='color:${oColor}; font-weight:bolder'>Other</span></td><td class="num">{${fieldInfos.other.county.next.name}}</td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}change${years.next}}</span></td></tr>
             </table>
           </div>
         `

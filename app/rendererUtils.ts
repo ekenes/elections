@@ -1,7 +1,7 @@
 import { SimpleRenderer } from "esri/renderers";
 import { CIMSymbol, SimpleFillSymbol } from "esri/symbols";
 import { UniqueValueRenderer } from "esri/rasterRenderers";
-import { years, fieldInfos, dColor, rColor, dColorCIM, oColorCIM, rColorCIM, results, oTextColorCIM, selectedYear } from "./config";
+import { years, fieldInfos, dColor, rColor, dColorCIM, oColorCIM, rColorCIM, results, selectedYear } from "./config";
 import { sizeExpressionBase, sizeTotalExpressionBase, sizeTotalChangeExpressionBase } from "./expressionUtils";
 import { createCircleSymbolLayer } from "./symbolUtils";
 
@@ -127,9 +127,6 @@ export const stateResultsRenderer = () => {
               anchorPoint: { x: 0, y: -0.75 },
               color: oColorCIM,
               donutEnabled: false,
-              outline: {
-                color: oTextColorCIM
-              }
             })
           ]
         },
@@ -225,9 +222,6 @@ export const stateChangeRenderer = () => {
               anchorPoint: { x: 0, y: -0.75 },
               color: oColorCIM,
               donutEnabled: false,
-              outline: {
-                color: oTextColorCIM
-              }
             }),
             createCircleSymbolLayer({
               primitiveName: `other-negative-votes`,
@@ -377,9 +371,6 @@ export const countyResultsRenderer = () => {
               anchorPoint: { x: 0, y: -0.75 },
               color: oColorCIM,
               donutEnabled: false,
-              outline: {
-                color: oTextColorCIM
-              }
             })
           ]
         },
@@ -474,10 +465,7 @@ export const countyChangeRenderer = () => {
               primitiveName: `other-positive-votes`,
               anchorPoint: { x: 0, y: -0.75 },
               color: oColorCIM,
-              donutEnabled: false,
-              outline: {
-                color: oTextColorCIM
-              }
+              donutEnabled: false
             }),
             createCircleSymbolLayer({
               primitiveName: `other-negative-votes`,

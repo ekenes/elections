@@ -230,15 +230,13 @@ export let fieldInfos = {
 
 export const rColor = new Color("rgba(220, 75, 0, 1)");
 export const dColor = new Color("rgba(60, 108, 204,1)");
-export const oColor = new Color("rgba(237, 218, 0, 1)");
-export const oTextColor = new Color("rgba(181, 166, 0, 1)");
+export const oColor = new Color("rgba(181, 166, 0, 1)");
 export const haloColor = new Color("#f7f7f7");
 export const haloSize = 1;
 
 export const rColorCIM = rColor.toJSON();
 export const dColorCIM = dColor.toJSON();
 export const oColorCIM = oColor.toJSON();
-export const oTextColorCIM = oTextColor.toJSON();
 
 //////////////
 // size stops
