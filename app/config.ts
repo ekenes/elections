@@ -1,8 +1,8 @@
 import Color = require("esri/Color");
-
+import Slider = require("esri/widgets/Slider");
 
 // function to retrieve query parameters (in this case only id)
-interface UrlParams {
+export interface UrlParams {
   year?: 2004 | 2008 | 2012 | 2016 | 2020 | number,
 }
 
@@ -26,18 +26,35 @@ export function setUrlParams(year: UrlParams["year"]) {
 }
 
 let year = getUrlParams();
-const yearSelect = document.getElementById("year-select") as HTMLSelectElement;
+
+export const yearSlider = new Slider({
+  container: document.getElementById("slider"),
+  min: 2004,
+  max: 2020,
+  visibleElements: {
+    labels: false
+  },
+  labelInputsEnabled: false,
+  rangeLabelInputsEnabled: false,
+  steps: 4,
+  tickConfigs: [{
+    mode: "position",
+    values: [ 2004, 2008, 2012, 2016, 2020 ],
+    labelsVisible: true
+  }]
+});
 
 if(!year){
   year = 2020;
   setUrlParams(year);
+  yearSlider.values = [ year ];
 } else {
   if ( year && validYears.indexOf(year) === -1 ){
     alert("You must enter a valid U.S. presidential election year (e.g. 2004, 2008, 20012, 2016)")
     year = 2020;
     setUrlParams(year);
   }
-  yearSelect.value = year.toString();
+  yearSlider.values = [ year ];
 }
 
 export const basemapPortalItem = "fbfb62f3599f41e5a77845f863e2872f";

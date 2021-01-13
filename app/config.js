@@ -1,4 +1,4 @@
-define(["require", "exports", "esri/Color"], function (require, exports, Color) {
+define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (require, exports, Color, Slider) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var validYears = [2000, 2004, 2008, 2012, 2016, 2020];
@@ -17,10 +17,26 @@ define(["require", "exports", "esri/Color"], function (require, exports, Color) 
     }
     exports.setUrlParams = setUrlParams;
     var year = getUrlParams();
-    var yearSelect = document.getElementById("year-select");
+    exports.yearSlider = new Slider({
+        container: document.getElementById("slider"),
+        min: 2004,
+        max: 2020,
+        visibleElements: {
+            labels: false
+        },
+        labelInputsEnabled: false,
+        rangeLabelInputsEnabled: false,
+        steps: 4,
+        tickConfigs: [{
+                mode: "position",
+                values: [2004, 2008, 2012, 2016, 2020],
+                labelsVisible: true
+            }]
+    });
     if (!year) {
         year = 2020;
         setUrlParams(year);
+        exports.yearSlider.values = [year];
     }
     else {
         if (year && validYears.indexOf(year) === -1) {
@@ -28,7 +44,7 @@ define(["require", "exports", "esri/Color"], function (require, exports, Color) 
             year = 2020;
             setUrlParams(year);
         }
-        yearSelect.value = year.toString();
+        exports.yearSlider.values = [year];
     }
     exports.basemapPortalItem = "fbfb62f3599f41e5a77845f863e2872f";
     exports.statesLayerPortalItem = "f2825b56dfc14bb892604637dab45104";

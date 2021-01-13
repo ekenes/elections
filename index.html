@@ -19,6 +19,22 @@
     <script src="https://js.arcgis.com/4.18/"></script>
   </head>
   <body>
+    <div id="infoDiv" class="esri-widget">
+      <div id="title" >Electoral swing</div>
+      <div id="subtitle">U.S. presidential elections 2004-2020</div>
+      <div id="current-year"></div>
+      <div id="results" class="esri-widget">
+        <div id="dem-results">
+          <div id="dem-candidate"></div>
+          <div id="dem-votes"></div>
+        </div>
+        <div id="rep-results">
+          <div id="rep-candidate"></div>
+          <div id="rep-votes"></div>
+        </div>
+      </div>
+      <div id="slider"></div>
+    </div>
     <div id="viewDiv"></div>
     <div id="change-legend" class="esri-widget legend-containers">
       <div class="heading">

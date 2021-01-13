@@ -118,3 +118,59 @@ table {
   padding: 10px;
   width: 220px;
 }
+
+/* RESULTS */
+
+#title {
+  font-size: 20pt;
+  font-weight: 600;
+}
+#infoDiv{
+  padding: 15px;
+  height: 190px;
+}
+#subtitle {
+  padding: 10px 0 10px 0;
+}
+#slider {
+  height: 0;
+  width: 280px;
+  margin: 10px;
+}
+
+#results {
+  padding: 10px;
+  background-color: white;
+  font-size: 18pt;
+  font-weight: 400;
+  /* width: 250px; */
+  display: flex;
+  /* flex-direction: #{column; */
+  justify-content: space-between;
+}
+
+
+#current-year{
+  text-align: center;
+  font-size: 18pt;
+}
+
+#dem-results {
+  color:  rgba(60, 108, 204,1);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#rep-results {
+  color: rgba(220, 75, 0, 1);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#dem-candidate {
+  margin-right: 0.3em;
+}
+
+#rep-candidate {
+  margin-right: 0.3em;
+}

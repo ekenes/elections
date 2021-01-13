@@ -5,7 +5,7 @@ import Swipe = require("esri/widgets/Swipe");
 import Legend = require("esri/widgets/Legend");
 import Expand = require("esri/widgets/Expand");
 
-import { referenceScale, maxScale, scaleThreshold, basemapPortalItem, statesLayerPortalItem, countiesLayerPortalItem, years, setSelectedYear, setUrlParams } from "./config";
+import { referenceScale, maxScale, scaleThreshold, basemapPortalItem, statesLayerPortalItem, countiesLayerPortalItem, years, setSelectedYear, setUrlParams, yearSlider, UrlParams, results, selectedYear } from "./config";
 import { statePopupTemplate, countyPopupTemplate } from "./popupUtils";
 import { countyChangeLabelingInfo, countyResultsLabelingInfo, stateChangeLabelingInfo, stateResultsLabelingInfo } from "./labelingUtils";
 import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, stateElectoralResultsRenderer, stateResultsRenderer, swingStateRenderer } from "./rendererUtils";
@@ -179,29 +179,13 @@ import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, state
   view.ui.add(changeLegend, `bottom-left`);
   view.ui.add(totalLegend, `bottom-right`);
 
-  const yearSelect = document.getElementById("year-select") as HTMLSelectElement;
   const yearSelectExpand = new Expand({
     view,
-    content: document.getElementById(`select-parent`),
-    expandIconClass: "esri-icon-time-clock"
+    content: document.getElementById(`infoDiv`),
+    expandIconClass: "esri-icon-time-clock",
+    expanded: true
   });
-  view.ui.add(yearSelectExpand, `top-left`);
-
-  yearSelect.addEventListener("change", () => {
-    const year = parseInt(yearSelect.value);
-
-    startYearChangeSpan.innerHTML = (year - 4).toString();
-    endYearChangeSpan.innerHTML = year.toString();
-    endYearTotalSpan.innerHTML = year.toString();
-
-    setUrlParams(year)
-    setSelectedYear(year);
-    updateLayers();
-
-    // setTimeout( () => {
-    //   yearSelectExpand.expanded = false;
-    // }, 2000);
-  });
+  view.ui.add(yearSelectExpand, `top-right`);
 
   view.ui.add(infoToggle, `top-left`);
 
@@ -274,6 +258,48 @@ import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, state
 
   view.watch(`heightBreakpoint`, updateLegendHeight);
   await view.when(updateLegendHeight).then(updateLegendOpacity);
+
+  yearSlider.watch("values", ([ year ]) => {
+    startYearChangeSpan.innerHTML = (year - 4).toString();
+    endYearChangeSpan.innerHTML = year.toString();
+    endYearTotalSpan.innerHTML = year.toString();
+    setUrlParams(year);
+    setSelectedYear(year);
+    updateLayers();
+    updateResultsDisplay(year);
+  });
+
+  const currentYear = document.getElementById("current-year") as HTMLDivElement;
+  const demCandidate = document.getElementById("dem-candidate") as HTMLDivElement;
+  const demVotes = document.getElementById("dem-votes") as HTMLDivElement;
+  const repCandidate = document.getElementById("rep-candidate") as HTMLDivElement;
+  const repVotes = document.getElementById("rep-votes") as HTMLDivElement;
+  const demResults = document.getElementById("dem-results") as HTMLDivElement;
+  const repResults = document.getElementById("rep-results") as HTMLDivElement;
+
+  function updateResultsDisplay(year: UrlParams["year"]){
+    const result = results[year];
+
+    currentYear.innerHTML = year.toString();
+
+    const demWinner = result.democrat.electoralVotes > result.republican.electoralVotes;
+
+    demCandidate.innerHTML = result.democrat.candidate;
+    demVotes.innerHTML = result.democrat.electoralVotes;
+
+    repCandidate.innerHTML = result.republican.candidate;
+    repVotes.innerHTML = result.republican.electoralVotes;
+
+    if(demWinner){
+      demResults.style.fontWeight = "bolder";
+      repResults.style.fontWeight = null;
+    } else {
+      demResults.style.fontWeight = null;
+      repResults.style.fontWeight = "bolder";
+    }
+  }
+
+  updateResultsDisplay(selectedYear);
 
 })();
 

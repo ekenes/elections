@@ -147,7 +147,24 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                 totalLegend.style.overflow = "auto";
             }
         }
-        var map, view, commonLayerOptions, stateElectoralResultsLayer, swingStatesLayer, countyChangeLayer, countyResultsLayer, stateChangeLayer, stateResultsLayer, swipe, totalLegend, changeLegend, infoToggle, endYearChangeSpan, startYearChangeSpan, endYearTotalSpan, yearSelect, yearSelectExpand, visibilityEnabled, toggleInfoVisibility;
+        function updateResultsDisplay(year) {
+            var result = config_1.results[year];
+            currentYear.innerHTML = year.toString();
+            var demWinner = result.democrat.electoralVotes > result.republican.electoralVotes;
+            demCandidate.innerHTML = result.democrat.candidate;
+            demVotes.innerHTML = result.democrat.electoralVotes;
+            repCandidate.innerHTML = result.republican.candidate;
+            repVotes.innerHTML = result.republican.electoralVotes;
+            if (demWinner) {
+                demResults.style.fontWeight = "bolder";
+                repResults.style.fontWeight = null;
+            }
+            else {
+                demResults.style.fontWeight = null;
+                repResults.style.fontWeight = "bolder";
+            }
+        }
+        var map, view, commonLayerOptions, stateElectoralResultsLayer, swingStatesLayer, countyChangeLayer, countyResultsLayer, stateChangeLayer, stateResultsLayer, swipe, totalLegend, changeLegend, infoToggle, endYearChangeSpan, startYearChangeSpan, endYearTotalSpan, yearSelectExpand, visibilityEnabled, toggleInfoVisibility, currentYear, demCandidate, demVotes, repCandidate, repVotes, demResults, repResults;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -230,25 +247,13 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                     });
                     view.ui.add(changeLegend, "bottom-left");
                     view.ui.add(totalLegend, "bottom-right");
-                    yearSelect = document.getElementById("year-select");
                     yearSelectExpand = new Expand({
                         view: view,
-                        content: document.getElementById("select-parent"),
-                        expandIconClass: "esri-icon-time-clock"
+                        content: document.getElementById("infoDiv"),
+                        expandIconClass: "esri-icon-time-clock",
+                        expanded: true
                     });
-                    view.ui.add(yearSelectExpand, "top-left");
-                    yearSelect.addEventListener("change", function () {
-                        var year = parseInt(yearSelect.value);
-                        startYearChangeSpan.innerHTML = (year - 4).toString();
-                        endYearChangeSpan.innerHTML = year.toString();
-                        endYearTotalSpan.innerHTML = year.toString();
-                        config_1.setUrlParams(year);
-                        config_1.setSelectedYear(year);
-                        updateLayers();
-                        // setTimeout( () => {
-                        //   yearSelectExpand.expanded = false;
-                        // }, 2000);
-                    });
+                    view.ui.add(yearSelectExpand, "top-right");
                     view.ui.add(infoToggle, "top-left");
                     visibilityEnabled = true;
                     toggleInfoVisibility = function () {
@@ -267,6 +272,24 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                     return [4 /*yield*/, view.when(updateLegendHeight).then(updateLegendOpacity)];
                 case 1:
                     _a.sent();
+                    config_1.yearSlider.watch("values", function (_a) {
+                        var year = _a[0];
+                        startYearChangeSpan.innerHTML = (year - 4).toString();
+                        endYearChangeSpan.innerHTML = year.toString();
+                        endYearTotalSpan.innerHTML = year.toString();
+                        config_1.setUrlParams(year);
+                        config_1.setSelectedYear(year);
+                        updateLayers();
+                        updateResultsDisplay(year);
+                    });
+                    currentYear = document.getElementById("current-year");
+                    demCandidate = document.getElementById("dem-candidate");
+                    demVotes = document.getElementById("dem-votes");
+                    repCandidate = document.getElementById("rep-candidate");
+                    repVotes = document.getElementById("rep-votes");
+                    demResults = document.getElementById("dem-results");
+                    repResults = document.getElementById("rep-results");
+                    updateResultsDisplay(config_1.selectedYear);
                     return [2 /*return*/];
             }
         });
