@@ -53,7 +53,7 @@ define(["require", "exports"], function (require, exports) {
                     type: "CIMSolidStroke",
                     enable: true,
                     color: color,
-                    width: 2
+                    width: 2.4
                 }
             ]
         } : {

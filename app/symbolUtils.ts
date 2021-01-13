@@ -62,7 +62,7 @@ export function createCircleSymbolLayer (params: CreateSymbolLayerParams){
         type: "CIMSolidStroke",
         enable: true,
         color,
-        width: 2
+        width: 2.4
       }
     ]
   } : {
