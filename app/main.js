@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/widgets/Swipe", "esri/widgets/Legend", "esri/widgets/Expand", "./config", "./popupUtils", "./labelingUtils", "./rendererUtils"], function (require, exports, EsriMap, MapView, FeatureLayer, Swipe, Legend, Expand, config_1, popupUtils_1, labelingUtils_1, rendererUtils_1) {
+define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer", "esri/widgets/Swipe", "esri/widgets/Legend", "esri/widgets/Expand", "esri/views/layers/support/FeatureEffect", "esri/views/layers/support/FeatureFilter", "esri/geometry/geometryEngine", "./config", "./popupUtils", "./labelingUtils", "./rendererUtils"], function (require, exports, EsriMap, MapView, FeatureLayer, Swipe, Legend, Expand, FeatureEffect, FeatureFilter, geometryEngine, config_1, popupUtils_1, labelingUtils_1, rendererUtils_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     (function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -164,7 +164,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                 repResults.style.fontWeight = "bolder";
             }
         }
-        var map, view, commonLayerOptions, stateElectoralResultsLayer, swingStatesLayer, countyChangeLayer, countyResultsLayer, stateChangeLayer, stateResultsLayer, swipe, totalLegend, changeLegend, infoToggle, endYearChangeSpan, startYearChangeSpan, endYearTotalSpan, yearSelectExpand, visibilityEnabled, toggleInfoVisibility, currentYear, demCandidate, demVotes, repCandidate, repVotes, demResults, repResults;
+        var map, view, commonLayerOptions, stateElectoralResultsLayer, swingStatesLayer, countyChangeLayer, countyResultsLayer, stateChangeLayer, stateResultsLayer, swipe, totalLegend, changeLegend, infoToggle, endYearChangeSpan, startYearChangeSpan, endYearTotalSpan, yearSelectExpand, visibilityEnabled, toggleInfoVisibility, currentYear, demCandidate, demVotes, repCandidate, repVotes, demResults, repResults, swingLayerView, stateChangeLayerView, countyChangeLayerView, countyResultsLayerView, stateResultsLayerView;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -196,6 +196,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                             xsmall: 544
                         },
                         popup: {
+                            highlightEnabled: false,
                             collapseEnabled: false,
                             dockEnabled: true,
                             dockOptions: {
@@ -295,6 +296,45 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                     demResults = document.getElementById("dem-results");
                     repResults = document.getElementById("rep-results");
                     updateResultsDisplay(config_1.selectedYear);
+                    return [4 /*yield*/, view.whenLayerView(swingStatesLayer)];
+                case 2:
+                    swingLayerView = _a.sent();
+                    return [4 /*yield*/, view.whenLayerView(stateChangeLayer)];
+                case 3:
+                    stateChangeLayerView = _a.sent();
+                    return [4 /*yield*/, view.whenLayerView(countyChangeLayer)];
+                case 4:
+                    countyChangeLayerView = _a.sent();
+                    return [4 /*yield*/, view.whenLayerView(countyResultsLayer)];
+                case 5:
+                    countyResultsLayerView = _a.sent();
+                    return [4 /*yield*/, view.whenLayerView(stateResultsLayer)];
+                case 6:
+                    stateResultsLayerView = _a.sent();
+                    view.on("click", function (event) { return __awaiter(void 0, void 0, void 0, function () {
+                        var geometry, effect;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0: return [4 /*yield*/, swingLayerView.queryFeatures({
+                                        geometry: view.toMap(event),
+                                        returnGeometry: true
+                                    })];
+                                case 1:
+                                    geometry = (_a.sent()).features[0].geometry;
+                                    effect = new FeatureEffect({
+                                        filter: new FeatureFilter({
+                                            geometry: geometryEngine.buffer(geometry, -2, "kilometers")
+                                        }),
+                                        excludedEffect: "opacity(0.2)"
+                                    });
+                                    stateChangeLayerView.effect = effect;
+                                    countyChangeLayerView.effect = effect;
+                                    countyResultsLayerView.effect = effect;
+                                    stateResultsLayerView.effect = effect;
+                                    return [2 /*return*/];
+                            }
+                        });
+                    }); });
                     return [2 /*return*/];
             }
         });

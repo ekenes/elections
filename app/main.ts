@@ -4,11 +4,15 @@ import FeatureLayer = require("esri/layers/FeatureLayer");
 import Swipe = require("esri/widgets/Swipe");
 import Legend = require("esri/widgets/Legend");
 import Expand = require("esri/widgets/Expand");
+import FeatureEffect = require("esri/views/layers/support/FeatureEffect");
+import FeatureFilter = require("esri/views/layers/support/FeatureFilter");
+import geometryEngine = require("esri/geometry/geometryEngine");
 
 import { referenceScale, maxScale, scaleThreshold, basemapPortalItem, statesLayerPortalItem, countiesLayerPortalItem, years, setSelectedYear, setUrlParams, yearSlider, UrlParams, results, selectedYear } from "./config";
 import { statePopupTemplate, countyPopupTemplate } from "./popupUtils";
 import { countyChangeLabelingInfo, countyResultsLabelingInfo, stateChangeLabelingInfo, stateResultsLabelingInfo } from "./labelingUtils";
 import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, stateElectoralResultsRenderer, stateResultsRenderer, swingStateRenderer } from "./rendererUtils";
+import { Polygon } from "esri/geometry";
 
 ( async () => {
 
@@ -41,6 +45,7 @@ import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, state
       xsmall: 544
     },
     popup: {
+      highlightEnabled: false,
       collapseEnabled: false,
       dockEnabled: true,
       dockOptions: {
@@ -305,6 +310,35 @@ import { countyChangeRenderer, countyResultsRenderer, stateChangeRenderer, state
   }
 
   updateResultsDisplay(selectedYear);
+
+
+  const swingLayerView = await view.whenLayerView(swingStatesLayer) as __esri.FeatureLayerView;
+  const stateChangeLayerView = await view.whenLayerView(stateChangeLayer) as __esri.FeatureLayerView;
+  const countyChangeLayerView = await view.whenLayerView(countyChangeLayer) as __esri.FeatureLayerView;
+  const countyResultsLayerView = await view.whenLayerView(countyResultsLayer) as __esri.FeatureLayerView;
+  const stateResultsLayerView = await view.whenLayerView(stateResultsLayer) as __esri.FeatureLayerView;
+
+
+  view.on("click", async (event) => {
+    const {
+      features: [{ geometry }]
+    } = await swingLayerView.queryFeatures({
+      geometry: view.toMap(event),
+      returnGeometry: true
+    });
+
+    const effect = new FeatureEffect({
+      filter: new FeatureFilter({
+        geometry: geometryEngine.buffer(geometry, -2, "kilometers") as Polygon
+      }),
+      excludedEffect: `opacity(0.2)`
+    });
+
+    stateChangeLayerView.effect = effect;
+    countyChangeLayerView.effect = effect;
+    countyResultsLayerView.effect = effect;
+    stateResultsLayerView.effect = effect;
+  });
 
 })();
 
