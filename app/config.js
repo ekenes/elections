@@ -69,7 +69,7 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
                 electoralVotes: 266
             },
             other: {
-                candidate: "Another candidate",
+                candidate: "Other",
                 electoralVotes: 0
             }
         },
@@ -83,7 +83,7 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
                 electoralVotes: 251
             },
             other: {
-                candidate: "Another candidate",
+                candidate: "Other",
                 electoralVotes: 0
             }
         },
@@ -97,7 +97,7 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
                 electoralVotes: 365
             },
             other: {
-                candidate: "Another candidate",
+                candidate: "Other",
                 electoralVotes: 0
             }
         },
@@ -111,7 +111,7 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
                 electoralVotes: 332
             },
             other: {
-                candidate: "Another candidate",
+                candidate: "Other",
                 electoralVotes: 0
             }
         },
@@ -125,7 +125,7 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
                 electoralVotes: 227
             },
             other: {
-                candidate: "Another candidate",
+                candidate: "Other",
                 electoralVotes: 0
             }
         },
@@ -139,7 +139,7 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
                 electoralVotes: 306
             },
             other: {
-                candidate: "Another candidate",
+                candidate: "Other",
                 electoralVotes: 0
             }
         }
