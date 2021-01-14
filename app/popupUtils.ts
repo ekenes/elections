@@ -5,7 +5,7 @@ import FieldInfoFormat = require("esri/popup/support/FieldInfoFormat");
 
 import { TextContent } from "esri/popup/content";
 import { years, fieldInfos, dColor, rColor, oColor, results, selectedYear } from "./config";
-import { colorDiffPopupBase, votesCountyNextBase, votesStateNextBase, diffTextBase } from "./expressionUtils";
+import { colorDiffPopupBase, votesCountyNextBase, votesStateNextBase, diffTextBase, allCountyNextBase, shiftCountyTextBase, shareTextBase, shiftCounties, colorShiftPopupBase, shiftStatesTextBase, allStateNextBase, shiftStates } from "./expressionUtils";
 
 ////////////////////////////////////////////////////
 //
@@ -82,10 +82,30 @@ export const statePopupTemplate = () => {
             <br/>
             <br/>
             <table class="esri-widget popup">
-              <tr class="head"><td>Party</td><td>Votes</td><td>+/-</td><td>% Change</td></tr>
-              <tr class="dem"><td><span style='color:${dColor}; font-weight:bolder'>Democrat</span></td><td class="num">{${fieldInfos.democrat.state.next.name}}</td><td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}change${years.next}}</span></td></tr>
-              <tr class="rep"><td><span style='color:${rColor}; font-weight:bolder'>Republican</span></td><td class="num">{${fieldInfos.republican.state.next.name}}</td><td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}change${years.next}}</span></td></tr>
-              <tr class="oth"><td><span style='color:${oColor}; font-weight:bolder'>Other</span></td><td class="num">{${fieldInfos.other.state.next.name}}</td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}change${years.next}}</span></td></tr>
+              <tr class="head"><td>Party</td><td>Votes</td><td>+/-</td><td>%</td><td>+/-</td><td>% Change</td></tr>
+
+              <tr class="dem"><td><span style='color:${dColor}; font-weight:bolder'>${results[selectedYear].democrat.candidate}</span></td><td class="num">{${fieldInfos.democrat.state.next.name}}</td><td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}diff${years.next}}</span></td>
+
+              <td class="num">{expression/demShare${years.next}}</td>
+              <td class="num"><span style='color: {expression/dem-shift-color}'>{expression/dem${years.previous}shift${years.next}}</span></td>
+
+              <td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}change${years.next}}</span></td></tr>
+
+
+              <tr class="rep"><td><span style='color:${rColor}; font-weight:bolder'>${results[selectedYear].republican.candidate}</span></td><td class="num">{${fieldInfos.republican.state.next.name}}</td><td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}diff${years.next}}</span></td>
+
+              <td class="num">{expression/repShare${years.next}}</td>
+              <td class="num"><span style='color: {expression/rep-shift-color}'>{expression/rep${years.previous}shift${years.next}}</span></td>
+
+              <td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}change${years.next}}</span></td></tr>
+
+
+              <tr class="oth"><td><span style='color:${oColor}; font-weight:bolder'>${results[selectedYear].other.candidate}</span></td><td class="num">{${fieldInfos.other.state.next.name}}</td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}diff${years.next}}</span></td>
+
+              <td class="num">{expression/othShare${years.next}}</td>
+              <td class="num"><span style='color: {expression/oth-shift-color}'>{expression/oth${years.previous}shift${years.next}}</span></td>
+
+              <td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}change${years.next}}</span></td></tr>
             </table>
           </div>
         `
@@ -197,6 +217,99 @@ export const statePopupTemplate = () => {
           var votesPrevious = $feature.${fieldInfos.other.state.previous.name};
           ${diffTextBase}
           return diffText;
+        `
+      }),
+      new ExpressionInfo({
+        title: `Republican shift from ${years.previous}`,
+        name: `rep${years.previous}shift${years.next}`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.republican.state.next.name};
+          var votesPrevious = $feature.${fieldInfos.republican.state.previous.name};
+
+          ${shiftStatesTextBase()}
+        `
+      }),
+      new ExpressionInfo({
+        title: `Democrat shift from ${years.previous}`,
+        name: `dem${years.previous}shift${years.next}`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.democrat.state.next.name};
+          var votesPrevious = $feature.${fieldInfos.democrat.state.previous.name};
+
+          ${shiftStatesTextBase()}
+        `
+      }),
+      new ExpressionInfo({
+        title: `Other shift from ${years.previous}`,
+        name: `oth${years.previous}shift${years.next}`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.other.state.next.name};
+          var votesPrevious = $feature.${fieldInfos.other.state.previous.name};
+
+          ${shiftStatesTextBase()}
+        `
+      }),
+      new ExpressionInfo({
+        title: `Republican share ${years.next}`,
+        name: `repShare${years.next}`,
+        expression: `
+          ${allStateNextBase()}
+
+          var votes = $feature.${fieldInfos.republican.state.next.name};
+
+          ${shareTextBase}
+        `
+      }),
+      new ExpressionInfo({
+        title: `Democrat share ${years.next}`,
+        name: `demShare${years.next}`,
+        expression: `
+          ${allStateNextBase()}
+
+          var votes = $feature.${fieldInfos.democrat.state.next.name};
+
+          ${shareTextBase}
+        `
+      }),
+      new ExpressionInfo({
+        title: `Other share ${years.next}`,
+        name: `othShare${years.next}`,
+        expression: `
+          ${allStateNextBase()}
+
+          var votes = $feature.${fieldInfos.other.state.next.name};
+
+          ${shareTextBase}
+        `
+      }),
+      new ExpressionInfo({
+        title: `shift-color`,
+        name: `dem-shift-color`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.democrat.state.next.name};
+          var votesPrevious = $feature.${fieldInfos.democrat.state.previous.name};
+          ${shiftStates()}
+          ${colorShiftPopupBase}
+        `
+      }),
+      new ExpressionInfo({
+        title: `shift-color`,
+        name: `rep-shift-color`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.republican.state.next.name};
+          var votesPrevious = $feature.${fieldInfos.republican.state.previous.name};
+          ${shiftStates()}
+          ${colorShiftPopupBase}
+        `
+      }),
+      new ExpressionInfo({
+        title: `shift-color`,
+        name: `oth-shift-color`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.other.state.next.name};
+          var votesPrevious = $feature.${fieldInfos.other.state.previous.name};
+          ${shiftStates()}
+          ${colorShiftPopupBase}
         `
       }),
       new ExpressionInfo({
@@ -342,10 +455,30 @@ export const countyPopupTemplate = () => {
             <br/>
             <br/>
             <table class="esri-widget popup">
-              <tr class="head"><td>Party</td><td>Votes</td><td>+/-</td><td>% Change</td></tr>
-              <tr class="dem"><td><span style='color:${dColor}; font-weight:bolder'>Democrat</span></td><td class="num">{${fieldInfos.democrat.county.next.name}}</td><td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}change${years.next}}</span></td></tr>
-              <tr class="rep"><td><span style='color:${rColor}; font-weight:bolder'>Republican</span></td><td class="num">{${fieldInfos.republican.county.next.name}}</td><td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}change${years.next}}</span></td></tr>
-              <tr class="oth"><td><span style='color:${oColor}; font-weight:bolder'>Other</span></td><td class="num">{${fieldInfos.other.county.next.name}}</td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}diff${years.next}}</span></td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}change${years.next}}</span></td></tr>
+              <tr class="head"><td>Party</td><td>Votes</td><td>+/-</td><td>%</td><td>+/-</td><td>% Change</td></tr>
+
+              <tr class="dem"><td><span style='color:${dColor}; font-weight:bolder'>${results[selectedYear].democrat.candidate}</span></td><td class="num">{${fieldInfos.democrat.county.next.name}}</td><td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}diff${years.next}}</span></td>
+
+              <td class="num">{expression/demShare${years.next}}</td>
+              <td class="num"><span style='color: {expression/dem-shift-color}'>{expression/dem${years.previous}shift${years.next}}</span></td>
+
+              <td class="num"><span style='color: {expression/dem-change-color}'>{expression/dem${years.previous}change${years.next}}</span></td></tr>
+
+
+              <tr class="rep"><td><span style='color:${rColor}; font-weight:bolder'>${results[selectedYear].republican.candidate}</span></td><td class="num">{${fieldInfos.republican.county.next.name}}</td><td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}diff${years.next}}</span></td>
+
+              <td class="num">{expression/repShare${years.next}}</td>
+              <td class="num"><span style='color: {expression/rep-shift-color}'>{expression/rep${years.previous}shift${years.next}}</span></td>
+
+              <td class="num"><span style='color: {expression/rep-change-color}'>{expression/rep${years.previous}change${years.next}}</span></td></tr>
+
+
+              <tr class="oth"><td><span style='color:${oColor}; font-weight:bolder'>${results[selectedYear].other.candidate}</span></td><td class="num">{${fieldInfos.other.county.next.name}}</td><td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}diff${years.next}}</span></td>
+
+              <td class="num">{expression/othShare${years.next}}</td>
+              <td class="num"><span style='color: {expression/oth-shift-color}'>{expression/oth${years.previous}shift${years.next}}</span></td>
+
+              <td class="num"><span style='color: {expression/oth-change-color}'>{expression/oth${years.previous}change${years.next}}</span></td></tr>
             </table>
           </div>
         `
@@ -460,6 +593,99 @@ export const countyPopupTemplate = () => {
           var votesPrevious = $feature.${fieldInfos.other.county.previous.name};
           ${diffTextBase}
           return diffText;
+        `
+      }),
+      new ExpressionInfo({
+        title: `Republican shift from ${years.previous}`,
+        name: `rep${years.previous}shift${years.next}`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.republican.county.next.name};
+          var votesPrevious = $feature.${fieldInfos.republican.county.previous.name};
+
+          ${shiftCountyTextBase()}
+        `
+      }),
+      new ExpressionInfo({
+        title: `Democrat shift from ${years.previous}`,
+        name: `dem${years.previous}shift${years.next}`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.democrat.county.next.name};
+          var votesPrevious = $feature.${fieldInfos.democrat.county.previous.name};
+
+          ${shiftCountyTextBase()}
+        `
+      }),
+      new ExpressionInfo({
+        title: `Other shift from ${years.previous}`,
+        name: `oth${years.previous}shift${years.next}`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.other.county.next.name};
+          var votesPrevious = $feature.${fieldInfos.other.county.previous.name};
+
+          ${shiftCountyTextBase()}
+        `
+      }),
+      new ExpressionInfo({
+        title: `Republican share ${years.next}`,
+        name: `repShare${years.next}`,
+        expression: `
+          ${allCountyNextBase()}
+
+          var votes = $feature.${fieldInfos.republican.county.next.name};
+
+          ${shareTextBase}
+        `
+      }),
+      new ExpressionInfo({
+        title: `Democrat share ${years.next}`,
+        name: `demShare${years.next}`,
+        expression: `
+          ${allCountyNextBase()}
+
+          var votes = $feature.${fieldInfos.democrat.county.next.name};
+
+          ${shareTextBase}
+        `
+      }),
+      new ExpressionInfo({
+        title: `Other share ${years.next}`,
+        name: `othShare${years.next}`,
+        expression: `
+          ${allCountyNextBase()}
+
+          var votes = $feature.${fieldInfos.other.county.next.name};
+
+          ${shareTextBase}
+        `
+      }),
+      new ExpressionInfo({
+        title: `shift-color`,
+        name: `dem-shift-color`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.democrat.county.next.name};
+          var votesPrevious = $feature.${fieldInfos.democrat.county.previous.name};
+          ${shiftCounties()}
+          ${colorShiftPopupBase}
+        `
+      }),
+      new ExpressionInfo({
+        title: `shift-color`,
+        name: `rep-shift-color`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.republican.county.next.name};
+          var votesPrevious = $feature.${fieldInfos.republican.county.previous.name};
+          ${shiftCounties()}
+          ${colorShiftPopupBase}
+        `
+      }),
+      new ExpressionInfo({
+        title: `shift-color`,
+        name: `oth-shift-color`,
+        expression: `
+          var votesNext = $feature.${fieldInfos.other.county.next.name};
+          var votesPrevious = $feature.${fieldInfos.other.county.previous.name};
+          ${shiftCounties()}
+          ${colorShiftPopupBase}
         `
       }),
       new ExpressionInfo({

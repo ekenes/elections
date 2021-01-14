@@ -64,7 +64,7 @@ define(["require", "exports", "esri/PopupTemplate", "esri/popup/ExpressionInfo",
                     text: "\n          <span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner}</span>\n          won " + config_1.fieldInfos.title.state + " by a margin of <span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner-margin-votes}</span> votes (<span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner-margin}</span> points).\n          The {expression/winner-votes} votes cast for {expression/winner} comprise\n          {expression/winner-percent-state-votes} of the total votes cast in the state.\n        "
                 }),
                 new content_1.TextContent({
-                    text: "\n          <div class=\"table-container\">\n            Votes in " + config_1.years.next + " and the change from " + config_1.years.previous + "\n            <br/>\n            <br/>\n            <table class=\"esri-widget popup\">\n              <tr class=\"head\"><td>Party</td><td>Votes</td><td>+/-</td><td>% Change</td></tr>\n              <tr class=\"dem\"><td><span style='color:" + config_1.dColor + "; font-weight:bolder'>Democrat</span></td><td class=\"num\">{" + config_1.fieldInfos.democrat.state.next.name + "}</td><td class=\"num\"><span style='color: {expression/dem-change-color}'>{expression/dem" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td><td class=\"num\"><span style='color: {expression/dem-change-color}'>{expression/dem" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n              <tr class=\"rep\"><td><span style='color:" + config_1.rColor + "; font-weight:bolder'>Republican</span></td><td class=\"num\">{" + config_1.fieldInfos.republican.state.next.name + "}</td><td class=\"num\"><span style='color: {expression/rep-change-color}'>{expression/rep" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td><td class=\"num\"><span style='color: {expression/rep-change-color}'>{expression/rep" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n              <tr class=\"oth\"><td><span style='color:" + config_1.oColor + "; font-weight:bolder'>Other</span></td><td class=\"num\">{" + config_1.fieldInfos.other.state.next.name + "}</td><td class=\"num\"><span style='color: {expression/oth-change-color}'>{expression/oth" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td><td class=\"num\"><span style='color: {expression/oth-change-color}'>{expression/oth" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n            </table>\n          </div>\n        "
+                    text: "\n          <div class=\"table-container\">\n            Votes in " + config_1.years.next + " and the change from " + config_1.years.previous + "\n            <br/>\n            <br/>\n            <table class=\"esri-widget popup\">\n              <tr class=\"head\"><td>Party</td><td>Votes</td><td>+/-</td><td>%</td><td>+/-</td><td>% Change</td></tr>\n\n              <tr class=\"dem\"><td><span style='color:" + config_1.dColor + "; font-weight:bolder'>" + config_1.results[config_1.selectedYear].democrat.candidate + "</span></td><td class=\"num\">{" + config_1.fieldInfos.democrat.state.next.name + "}</td><td class=\"num\"><span style='color: {expression/dem-change-color}'>{expression/dem" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\">{expression/demShare" + config_1.years.next + "}</td>\n              <td class=\"num\"><span style='color: {expression/dem-shift-color}'>{expression/dem" + config_1.years.previous + "shift" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\"><span style='color: {expression/dem-change-color}'>{expression/dem" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n\n\n              <tr class=\"rep\"><td><span style='color:" + config_1.rColor + "; font-weight:bolder'>" + config_1.results[config_1.selectedYear].republican.candidate + "</span></td><td class=\"num\">{" + config_1.fieldInfos.republican.state.next.name + "}</td><td class=\"num\"><span style='color: {expression/rep-change-color}'>{expression/rep" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\">{expression/repShare" + config_1.years.next + "}</td>\n              <td class=\"num\"><span style='color: {expression/rep-shift-color}'>{expression/rep" + config_1.years.previous + "shift" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\"><span style='color: {expression/rep-change-color}'>{expression/rep" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n\n\n              <tr class=\"oth\"><td><span style='color:" + config_1.oColor + "; font-weight:bolder'>" + config_1.results[config_1.selectedYear].other.candidate + "</span></td><td class=\"num\">{" + config_1.fieldInfos.other.state.next.name + "}</td><td class=\"num\"><span style='color: {expression/oth-change-color}'>{expression/oth" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\">{expression/othShare" + config_1.years.next + "}</td>\n              <td class=\"num\"><span style='color: {expression/oth-shift-color}'>{expression/oth" + config_1.years.previous + "shift" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\"><span style='color: {expression/oth-change-color}'>{expression/oth" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n            </table>\n          </div>\n        "
                 })
             ],
             expressionInfos: [
@@ -117,6 +117,51 @@ define(["require", "exports", "esri/PopupTemplate", "esri/popup/ExpressionInfo",
                     title: "Other diff from " + config_1.years.previous,
                     name: "oth" + config_1.years.previous + "diff" + config_1.years.next,
                     expression: "\n          var votesNext = $feature." + config_1.fieldInfos.other.state.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.other.state.previous.name + ";\n          " + expressionUtils_1.diffTextBase + "\n          return diffText;\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Republican shift from " + config_1.years.previous,
+                    name: "rep" + config_1.years.previous + "shift" + config_1.years.next,
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.republican.state.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.republican.state.previous.name + ";\n\n          " + expressionUtils_1.shiftStatesTextBase() + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Democrat shift from " + config_1.years.previous,
+                    name: "dem" + config_1.years.previous + "shift" + config_1.years.next,
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.democrat.state.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.democrat.state.previous.name + ";\n\n          " + expressionUtils_1.shiftStatesTextBase() + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Other shift from " + config_1.years.previous,
+                    name: "oth" + config_1.years.previous + "shift" + config_1.years.next,
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.other.state.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.other.state.previous.name + ";\n\n          " + expressionUtils_1.shiftStatesTextBase() + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Republican share " + config_1.years.next,
+                    name: "repShare" + config_1.years.next,
+                    expression: "\n          " + expressionUtils_1.allStateNextBase() + "\n\n          var votes = $feature." + config_1.fieldInfos.republican.state.next.name + ";\n\n          " + expressionUtils_1.shareTextBase + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Democrat share " + config_1.years.next,
+                    name: "demShare" + config_1.years.next,
+                    expression: "\n          " + expressionUtils_1.allStateNextBase() + "\n\n          var votes = $feature." + config_1.fieldInfos.democrat.state.next.name + ";\n\n          " + expressionUtils_1.shareTextBase + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Other share " + config_1.years.next,
+                    name: "othShare" + config_1.years.next,
+                    expression: "\n          " + expressionUtils_1.allStateNextBase() + "\n\n          var votes = $feature." + config_1.fieldInfos.other.state.next.name + ";\n\n          " + expressionUtils_1.shareTextBase + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "shift-color",
+                    name: "dem-shift-color",
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.democrat.state.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.democrat.state.previous.name + ";\n          " + expressionUtils_1.shiftStates() + "\n          " + expressionUtils_1.colorShiftPopupBase + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "shift-color",
+                    name: "rep-shift-color",
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.republican.state.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.republican.state.previous.name + ";\n          " + expressionUtils_1.shiftStates() + "\n          " + expressionUtils_1.colorShiftPopupBase + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "shift-color",
+                    name: "oth-shift-color",
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.other.state.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.other.state.previous.name + ";\n          " + expressionUtils_1.shiftStates() + "\n          " + expressionUtils_1.colorShiftPopupBase + "\n        "
                 }),
                 new ExpressionInfo({
                     title: "change-color",
@@ -209,7 +254,7 @@ define(["require", "exports", "esri/PopupTemplate", "esri/popup/ExpressionInfo",
                     text: "\n          <span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner}</span>\n          won " + config_1.fieldInfos.title.county + " by a margin of\n          <span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner-margin-votes}</span> votes (<span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner-margin}</span> points).\n          The {expression/winner-votes} votes cast for {expression/winner} comprise\n          {expression/winner-percent-state-votes} of the total votes cast in the state.\n        "
                 }),
                 new content_1.TextContent({
-                    text: "\n          <div class=\"table-container\">\n            Votes in " + config_1.years.next + " and the change from " + config_1.years.previous + "\n            <br/>\n            <br/>\n            <table class=\"esri-widget popup\">\n              <tr class=\"head\"><td>Party</td><td>Votes</td><td>+/-</td><td>% Change</td></tr>\n              <tr class=\"dem\"><td><span style='color:" + config_1.dColor + "; font-weight:bolder'>Democrat</span></td><td class=\"num\">{" + config_1.fieldInfos.democrat.county.next.name + "}</td><td class=\"num\"><span style='color: {expression/dem-change-color}'>{expression/dem" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td><td class=\"num\"><span style='color: {expression/dem-change-color}'>{expression/dem" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n              <tr class=\"rep\"><td><span style='color:" + config_1.rColor + "; font-weight:bolder'>Republican</span></td><td class=\"num\">{" + config_1.fieldInfos.republican.county.next.name + "}</td><td class=\"num\"><span style='color: {expression/rep-change-color}'>{expression/rep" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td><td class=\"num\"><span style='color: {expression/rep-change-color}'>{expression/rep" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n              <tr class=\"oth\"><td><span style='color:" + config_1.oColor + "; font-weight:bolder'>Other</span></td><td class=\"num\">{" + config_1.fieldInfos.other.county.next.name + "}</td><td class=\"num\"><span style='color: {expression/oth-change-color}'>{expression/oth" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td><td class=\"num\"><span style='color: {expression/oth-change-color}'>{expression/oth" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n            </table>\n          </div>\n        "
+                    text: "\n          <div class=\"table-container\">\n            Votes in " + config_1.years.next + " and the change from " + config_1.years.previous + "\n            <br/>\n            <br/>\n            <table class=\"esri-widget popup\">\n              <tr class=\"head\"><td>Party</td><td>Votes</td><td>+/-</td><td>%</td><td>+/-</td><td>% Change</td></tr>\n\n              <tr class=\"dem\"><td><span style='color:" + config_1.dColor + "; font-weight:bolder'>" + config_1.results[config_1.selectedYear].democrat.candidate + "</span></td><td class=\"num\">{" + config_1.fieldInfos.democrat.county.next.name + "}</td><td class=\"num\"><span style='color: {expression/dem-change-color}'>{expression/dem" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\">{expression/demShare" + config_1.years.next + "}</td>\n              <td class=\"num\"><span style='color: {expression/dem-shift-color}'>{expression/dem" + config_1.years.previous + "shift" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\"><span style='color: {expression/dem-change-color}'>{expression/dem" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n\n\n              <tr class=\"rep\"><td><span style='color:" + config_1.rColor + "; font-weight:bolder'>" + config_1.results[config_1.selectedYear].republican.candidate + "</span></td><td class=\"num\">{" + config_1.fieldInfos.republican.county.next.name + "}</td><td class=\"num\"><span style='color: {expression/rep-change-color}'>{expression/rep" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\">{expression/repShare" + config_1.years.next + "}</td>\n              <td class=\"num\"><span style='color: {expression/rep-shift-color}'>{expression/rep" + config_1.years.previous + "shift" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\"><span style='color: {expression/rep-change-color}'>{expression/rep" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n\n\n              <tr class=\"oth\"><td><span style='color:" + config_1.oColor + "; font-weight:bolder'>" + config_1.results[config_1.selectedYear].other.candidate + "</span></td><td class=\"num\">{" + config_1.fieldInfos.other.county.next.name + "}</td><td class=\"num\"><span style='color: {expression/oth-change-color}'>{expression/oth" + config_1.years.previous + "diff" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\">{expression/othShare" + config_1.years.next + "}</td>\n              <td class=\"num\"><span style='color: {expression/oth-shift-color}'>{expression/oth" + config_1.years.previous + "shift" + config_1.years.next + "}</span></td>\n\n              <td class=\"num\"><span style='color: {expression/oth-change-color}'>{expression/oth" + config_1.years.previous + "change" + config_1.years.next + "}</span></td></tr>\n            </table>\n          </div>\n        "
                 })
             ],
             expressionInfos: [
@@ -262,6 +307,51 @@ define(["require", "exports", "esri/PopupTemplate", "esri/popup/ExpressionInfo",
                     title: "Other diff from " + config_1.years.previous,
                     name: "oth" + config_1.years.previous + "diff" + config_1.years.next,
                     expression: "\n          var votesNext = $feature." + config_1.fieldInfos.other.county.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.other.county.previous.name + ";\n          " + expressionUtils_1.diffTextBase + "\n          return diffText;\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Republican shift from " + config_1.years.previous,
+                    name: "rep" + config_1.years.previous + "shift" + config_1.years.next,
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.republican.county.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.republican.county.previous.name + ";\n\n          " + expressionUtils_1.shiftCountyTextBase() + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Democrat shift from " + config_1.years.previous,
+                    name: "dem" + config_1.years.previous + "shift" + config_1.years.next,
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.democrat.county.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.democrat.county.previous.name + ";\n\n          " + expressionUtils_1.shiftCountyTextBase() + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Other shift from " + config_1.years.previous,
+                    name: "oth" + config_1.years.previous + "shift" + config_1.years.next,
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.other.county.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.other.county.previous.name + ";\n\n          " + expressionUtils_1.shiftCountyTextBase() + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Republican share " + config_1.years.next,
+                    name: "repShare" + config_1.years.next,
+                    expression: "\n          " + expressionUtils_1.allCountyNextBase() + "\n\n          var votes = $feature." + config_1.fieldInfos.republican.county.next.name + ";\n\n          " + expressionUtils_1.shareTextBase + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Democrat share " + config_1.years.next,
+                    name: "demShare" + config_1.years.next,
+                    expression: "\n          " + expressionUtils_1.allCountyNextBase() + "\n\n          var votes = $feature." + config_1.fieldInfos.democrat.county.next.name + ";\n\n          " + expressionUtils_1.shareTextBase + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "Other share " + config_1.years.next,
+                    name: "othShare" + config_1.years.next,
+                    expression: "\n          " + expressionUtils_1.allCountyNextBase() + "\n\n          var votes = $feature." + config_1.fieldInfos.other.county.next.name + ";\n\n          " + expressionUtils_1.shareTextBase + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "shift-color",
+                    name: "dem-shift-color",
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.democrat.county.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.democrat.county.previous.name + ";\n          " + expressionUtils_1.shiftCounties() + "\n          " + expressionUtils_1.colorShiftPopupBase + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "shift-color",
+                    name: "rep-shift-color",
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.republican.county.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.republican.county.previous.name + ";\n          " + expressionUtils_1.shiftCounties() + "\n          " + expressionUtils_1.colorShiftPopupBase + "\n        "
+                }),
+                new ExpressionInfo({
+                    title: "shift-color",
+                    name: "oth-shift-color",
+                    expression: "\n          var votesNext = $feature." + config_1.fieldInfos.other.county.next.name + ";\n          var votesPrevious = $feature." + config_1.fieldInfos.other.county.previous.name + ";\n          " + expressionUtils_1.shiftCounties() + "\n          " + expressionUtils_1.colorShiftPopupBase + "\n        "
                 }),
                 new ExpressionInfo({
                     title: "change-color",
