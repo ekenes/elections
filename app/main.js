@@ -44,7 +44,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                     id: config_1.statesLayerPortalItem
                 },
                 title: "Results by state",
-                opacity: 0.2,
+                opacity: 0.15,
                 renderer: rendererUtils_1.stateElectoralResultsRenderer(),
                 popupTemplate: popupUtils_1.statePopupTemplate(),
                 popupEnabled: false
@@ -54,7 +54,7 @@ define(["require", "exports", "esri/Map", "esri/views/MapView", "esri/layers/Fea
                     id: config_1.statesLayerPortalItem
                 },
                 title: "Swing states",
-                opacity: 0.2,
+                opacity: 0.15,
                 renderer: rendererUtils_1.swingStateRenderer(),
                 popupTemplate: popupUtils_1.statePopupTemplate(),
                 popupEnabled: false
