@@ -70,7 +70,7 @@ export const statePopupTemplate = () => {
       new TextContent({
         text: `
           <span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner}</span>
-          won ${fieldInfos.title.state} by a margin of <span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner-margin-votes}</span> votes (<span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner-margin}</span> points).
+          won ${fieldInfos.title.state}'s <strong>{${fieldInfos.normalizationFields.state.electoralVotes}}</strong> electoral votes by a margin of <span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner-margin-votes}</span> votes (<span style='color: {expression/winner-color}; font-weight:bolder'>{expression/winner-margin}</span> points).
           The {expression/winner-votes} votes cast for {expression/winner} comprise
           {expression/winner-percent-state-votes} of the total votes cast in the state.
         `

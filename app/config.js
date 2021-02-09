@@ -221,6 +221,7 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
                 next: "TOTAL_STATE_VOTES_" + exports.years.next
             },
             state: {
+                electoralVotes: "ev_" + exports.years.next,
                 previous: "",
                 next: ""
             }
@@ -346,6 +347,7 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
                     next: "TOTAL_STATE_VOTES_" + exports.years.next
                 },
                 state: {
+                    electoralVotes: "ev_" + exports.years.next,
                     previous: "",
                     next: ""
                 }

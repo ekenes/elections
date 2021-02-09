@@ -237,6 +237,7 @@ export let fieldInfos = {
       next: `TOTAL_STATE_VOTES_${years.next}`
     },
     state: {
+      electoralVotes: `ev_${years.next}`,
       previous: ``,
       next: ``
     }
@@ -376,6 +377,7 @@ export function setSelectedYear(year: UrlParams["year"]) {
         next: `TOTAL_STATE_VOTES_${years.next}`
       },
       state: {
+        electoralVotes: `ev_${years.next}`,
         previous: ``,
         next: ``
       }

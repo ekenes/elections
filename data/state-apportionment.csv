@@ -1,0 +1,53 @@
+﻿state_name,state_abb,EV_2000,EV_2004,EV_2008,EV_2012,EV_2016,EV_2020
+Alabama,AL,9,9,9,9,9,9
+Alaska,AK,3,3,3,3,3,3
+Arizona,AZ,8,10,10,11,11,11
+Arkansas,AR,6,6,6,6,6,6
+California,CA,54,55,55,55,55,55
+Colorado,CO,8,9,9,9,9,9
+Connecticut,CT,8,7,7,7,7,7
+Delaware,DE,3,3,3,3,3,3
+D.C.,DC,3,3,3,3,3,3
+Florida,FL,25,27,27,29,29,29
+Georgia,GA,13,15,15,16,16,16
+Hawaii,HI,4,4,4,4,4,4
+Idaho,ID,4,4,4,4,4,4
+Illinois,IL,22,21,21,20,20,20
+Indiana,IN,12,11,11,11,11,11
+Iowa,IA,7,7,7,6,6,6
+Kansas,KS,6,6,6,6,6,6
+Kentucky,KY,8,8,8,8,8,8
+Louisiana,LA,9,9,9,8,8,8
+Maine,ME,4,4,4,4,4,4
+Maryland,MD,10,10,10,10,10,10
+Massachusetts,MA,12,12,12,11,11,11
+Michigan,MI,18,17,17,16,16,16
+Minnesota,MN,10,10,10,10,10,10
+Mississippi,MS,7,6,6,6,6,6
+Missouri,MO,11,11,11,10,10,10
+Montana,MT,3,3,3,3,3,3
+Nebraska,NE,5,5,5,5,5,5
+Nevada,NV,4,5,5,6,6,6
+New Hampshire,NH,4,4,4,4,4,4
+New Jersey,NJ,15,15,15,14,14,14
+New Mexico,NM,5,5,5,5,5,5
+New York,NY,33,31,31,29,29,29
+North Carolina,NC,14,15,15,15,15,15
+North Dakota,ND,3,3,3,3,3,3
+Ohio,OH,21,20,20,18,18,18
+Oklahoma,OK,8,7,7,7,7,7
+Oregon,OR,7,7,7,7,7,7
+Pennsylvania,PA,23,21,21,20,20,20
+Rhode Island,RI,4,4,4,4,4,4
+South Carolina,SC,8,8,8,9,9,9
+South Dakota,SD,3,3,3,3,3,3
+Tennessee,TN,11,11,11,11,11,11
+Texas,TX,32,34,34,38,38,38
+Utah,UT,5,5,5,6,6,6
+Vermont,VT,3,3,3,3,3,3
+Virginia,VA,13,13,13,13,13,13
+Washington,WA,11,11,11,12,12,12
+West Virginia,WV,5,5,5,5,5,5
+Wisconsin,WI,11,10,10,10,10,10
+Wyoming,WY,3,3,3,3,3,3
+,,538,538,538,538,538,538
