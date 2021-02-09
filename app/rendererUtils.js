@@ -289,7 +289,7 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                             valueExpressionInfo: {
                                 type: "CIMExpressionInfo",
                                 title: "Increase in Democrat votes",
-                                expression: "\n                var percentStateVotes = ( $feature." + config_1.fieldInfos.democrat.county.next.name + " / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * 100;\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
+                                expression: "\n                var percentStateVotes = ( $feature." + config_1.fieldInfos.democrat.county.next.name + " / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * $feature." + config_1.fieldInfos.normalizationFields.state.electoralVotes + ";\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
                                 returnType: "Default"
                             }
                         },
@@ -300,7 +300,7 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                             valueExpressionInfo: {
                                 type: "CIMExpressionInfo",
                                 title: "Increase in Republican votes",
-                                expression: "\n                var percentStateVotes = ( $feature." + config_1.fieldInfos.republican.county.next.name + " / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * 100;\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
+                                expression: "\n                var percentStateVotes = ( $feature." + config_1.fieldInfos.republican.county.next.name + " / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * $feature." + config_1.fieldInfos.normalizationFields.state.electoralVotes + ";\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
                                 returnType: "Default"
                             }
                         },
@@ -311,7 +311,7 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                             valueExpressionInfo: {
                                 type: "CIMExpressionInfo",
                                 title: "Increase in Other votes",
-                                expression: "\n                var percentStateVotes = ( $feature." + config_1.fieldInfos.other.county.next.name + " / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * 100;\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
+                                expression: "\n                var percentStateVotes = ( $feature." + config_1.fieldInfos.other.county.next.name + " / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * $feature." + config_1.fieldInfos.normalizationFields.state.electoralVotes + ";\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
                                 returnType: "Default"
                             }
                         }
@@ -379,7 +379,7 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                             valueExpressionInfo: {
                                 type: "CIMExpressionInfo",
                                 title: "Increase in Democrat votes",
-                                expression: "\n                var votesNext = $feature." + config_1.fieldInfos.democrat.county.next.name + ";\n                var votesPrevious = $feature." + config_1.fieldInfos.democrat.county.previous.name + ";\n                var change = votesNext - votesPrevious;\n                var value = IIF( change > 0, change, 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * 100;\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
+                                expression: "\n                var votesNext = $feature." + config_1.fieldInfos.democrat.county.next.name + ";\n                var votesPrevious = $feature." + config_1.fieldInfos.democrat.county.previous.name + ";\n                var change = votesNext - votesPrevious;\n                var value = IIF( change > 0, change, 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * $feature." + config_1.fieldInfos.normalizationFields.state.electoralVotes + ";\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
                                 returnType: "Default"
                             }
                         },
@@ -390,7 +390,7 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                             valueExpressionInfo: {
                                 type: "CIMExpressionInfo",
                                 title: "Decrease in Democrat votes",
-                                expression: "\n                var votesNext = $feature." + config_1.fieldInfos.democrat.county.next.name + ";\n                var votesPrevious = $feature." + config_1.fieldInfos.democrat.county.previous.name + ";\n                var change = votesNext - votesPrevious;\n                var value = IIF( change < 0, Abs(change), 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * 100;\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
+                                expression: "\n                var votesNext = $feature." + config_1.fieldInfos.democrat.county.next.name + ";\n                var votesPrevious = $feature." + config_1.fieldInfos.democrat.county.previous.name + ";\n                var change = votesNext - votesPrevious;\n                var value = IIF( change < 0, Abs(change), 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * $feature." + config_1.fieldInfos.normalizationFields.state.electoralVotes + ";\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
                                 returnType: "Default"
                             }
                         },
@@ -401,7 +401,7 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                             valueExpressionInfo: {
                                 type: "CIMExpressionInfo",
                                 title: "Increase in Republican votes",
-                                expression: "\n                var valueNext = $feature." + config_1.fieldInfos.republican.county.next.name + ";\n                var valuePrevious = $feature." + config_1.fieldInfos.republican.county.previous.name + ";\n                var change = valueNext - valuePrevious;\n                var value = IIF( change > 0, change, 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * 100;\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
+                                expression: "\n                var valueNext = $feature." + config_1.fieldInfos.republican.county.next.name + ";\n                var valuePrevious = $feature." + config_1.fieldInfos.republican.county.previous.name + ";\n                var change = valueNext - valuePrevious;\n                var value = IIF( change > 0, change, 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * $feature." + config_1.fieldInfos.normalizationFields.state.electoralVotes + ";\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
                                 returnType: "Default"
                             }
                         },
@@ -412,7 +412,7 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                             valueExpressionInfo: {
                                 type: "CIMExpressionInfo",
                                 title: "Decrease in Republican votes",
-                                expression: "\n                var valueNext = $feature." + config_1.fieldInfos.republican.county.next.name + ";\n                var valuePrevious = $feature." + config_1.fieldInfos.republican.county.previous.name + ";\n                var change = valueNext - valuePrevious;\n                var value = IIF( change < 0, Abs(change), 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * 100;\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
+                                expression: "\n                var valueNext = $feature." + config_1.fieldInfos.republican.county.next.name + ";\n                var valuePrevious = $feature." + config_1.fieldInfos.republican.county.previous.name + ";\n                var change = valueNext - valuePrevious;\n                var value = IIF( change < 0, Abs(change), 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * $feature." + config_1.fieldInfos.normalizationFields.state.electoralVotes + ";\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
                                 returnType: "Default"
                             }
                         },
@@ -423,7 +423,7 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                             valueExpressionInfo: {
                                 type: "CIMExpressionInfo",
                                 title: "Increase in Other votes",
-                                expression: "\n                var valueNext = $feature." + config_1.fieldInfos.other.county.next.name + ";\n                var valuePrevious = $feature." + config_1.fieldInfos.other.county.previous.name + ";\n                var change = valueNext - valuePrevious;\n                var value = IIF( change > 0, change, 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * 100;\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
+                                expression: "\n                var valueNext = $feature." + config_1.fieldInfos.other.county.next.name + ";\n                var valuePrevious = $feature." + config_1.fieldInfos.other.county.previous.name + ";\n                var change = valueNext - valuePrevious;\n                var value = IIF( change > 0, change, 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * $feature." + config_1.fieldInfos.normalizationFields.state.electoralVotes + ";\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
                                 returnType: "Default"
                             }
                         },
@@ -434,7 +434,7 @@ define(["require", "exports", "esri/renderers", "esri/symbols", "esri/rasterRend
                             valueExpressionInfo: {
                                 type: "CIMExpressionInfo",
                                 title: "Decrease in Other votes",
-                                expression: "\n                var valueNext = $feature." + config_1.fieldInfos.other.county.next.name + ";\n                var valuePrevious = $feature." + config_1.fieldInfos.other.county.previous.name + ";\n                var change = valueNext - valuePrevious;\n                var value = IIF( change < 0, Abs(change), 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * 100;\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
+                                expression: "\n                var valueNext = $feature." + config_1.fieldInfos.other.county.next.name + ";\n                var valuePrevious = $feature." + config_1.fieldInfos.other.county.previous.name + ";\n                var change = valueNext - valuePrevious;\n                var value = IIF( change < 0, Abs(change), 0);\n                var percentStateVotes = ( value / $feature." + config_1.fieldInfos.normalizationFields.county.next + " ) * $feature." + config_1.fieldInfos.normalizationFields.state.electoralVotes + ";\n                " + expressionUtils_1.sizeExpressionBase + "\n              ",
                                 returnType: "Default"
                             }
                         }

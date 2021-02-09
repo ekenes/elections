@@ -259,10 +259,10 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
     // size is votes as a % of total state votes
     exports.countySizeStops = [
         { value: 0, size: 6 },
-        { value: 0.5, size: 10 },
-        { value: 1, size: 20 },
-        { value: 5, size: 25 },
-        { value: 30, size: 40 }
+        { value: 0.1, size: 12 },
+        { value: 1, size: 32 },
+        { value: 2, size: 48 },
+        { value: 10, size: 80 }
     ];
     function setSelectedYear(year) {
         exports.selectedYear = year;
