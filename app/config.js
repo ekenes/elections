@@ -260,9 +260,9 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
     exports.countySizeStops = [
         { value: 0, size: 6 },
         { value: 0.1, size: 12 },
-        { value: 1, size: 32 },
-        { value: 2, size: 48 },
-        { value: 10, size: 80 }
+        { value: 1, size: 24 },
+        { value: 2, size: 32 },
+        { value: 10, size: 50 }
     ];
     function setSelectedYear(year) {
         exports.selectedYear = year;
