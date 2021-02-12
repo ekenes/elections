@@ -286,10 +286,10 @@ export const stateChangeSizeStops = [
 
 export const countySizeStops = [
   { value: 0, size: 6 },
-  { value: 0.5, size: 10 },
-  { value: 1, size: 20 },
-  { value: 5, size: 25 },
-  { value: 30, size: 40 }
+  { value: 0.1, size: 12 },
+  { value: 1, size: 24 },
+  { value: 2, size: 32 },
+  { value: 10, size: 50 }
 ];
 
 export function setSelectedYear(year: UrlParams["year"]) {

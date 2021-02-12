@@ -383,7 +383,7 @@ export const countyResultsRenderer = () => {
               type: `CIMExpressionInfo`,
               title: `Increase in Democrat votes`,
               expression: `
-                var percentStateVotes = ( $feature.${fieldInfos.democrat.county.next.name} / $feature.${fieldInfos.normalizationFields.county.next} ) * 100;
+                var percentStateVotes = ( $feature.${fieldInfos.democrat.county.next.name} / $feature.${fieldInfos.normalizationFields.county.next} ) * $feature.${fieldInfos.normalizationFields.state.electoralVotes};
                 ${sizeExpressionBase}
               `,
               returnType: `Default`
@@ -397,7 +397,7 @@ export const countyResultsRenderer = () => {
               type: `CIMExpressionInfo`,
               title: `Increase in Republican votes`,
               expression: `
-                var percentStateVotes = ( $feature.${fieldInfos.republican.county.next.name} / $feature.${fieldInfos.normalizationFields.county.next} ) * 100;
+                var percentStateVotes = ( $feature.${fieldInfos.republican.county.next.name} / $feature.${fieldInfos.normalizationFields.county.next} ) * $feature.${fieldInfos.normalizationFields.state.electoralVotes};
                 ${sizeExpressionBase}
               `,
               returnType: `Default`
@@ -411,7 +411,7 @@ export const countyResultsRenderer = () => {
               type: `CIMExpressionInfo`,
               title: `Increase in Other votes`,
               expression: `
-                var percentStateVotes = ( $feature.${fieldInfos.other.county.next.name} / $feature.${fieldInfos.normalizationFields.county.next} ) * 100;
+                var percentStateVotes = ( $feature.${fieldInfos.other.county.next.name} / $feature.${fieldInfos.normalizationFields.county.next} ) * $feature.${fieldInfos.normalizationFields.state.electoralVotes};
                 ${sizeExpressionBase}
               `,
               returnType: `Default`
@@ -488,7 +488,7 @@ export const countyChangeRenderer = () => {
                 var votesPrevious = $feature.${fieldInfos.democrat.county.previous.name};
                 var change = votesNext - votesPrevious;
                 var value = IIF( change > 0, change, 0);
-                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * 100;
+                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * $feature.${fieldInfos.normalizationFields.state.electoralVotes};
                 ${sizeExpressionBase}
               `,
               returnType: `Default`
@@ -506,7 +506,7 @@ export const countyChangeRenderer = () => {
                 var votesPrevious = $feature.${fieldInfos.democrat.county.previous.name};
                 var change = votesNext - votesPrevious;
                 var value = IIF( change < 0, Abs(change), 0);
-                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * 100;
+                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * $feature.${fieldInfos.normalizationFields.state.electoralVotes};
                 ${sizeExpressionBase}
               `,
               returnType: `Default`
@@ -524,7 +524,7 @@ export const countyChangeRenderer = () => {
                 var valuePrevious = $feature.${fieldInfos.republican.county.previous.name};
                 var change = valueNext - valuePrevious;
                 var value = IIF( change > 0, change, 0);
-                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * 100;
+                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * $feature.${fieldInfos.normalizationFields.state.electoralVotes};
                 ${sizeExpressionBase}
               `,
               returnType: `Default`
@@ -542,7 +542,7 @@ export const countyChangeRenderer = () => {
                 var valuePrevious = $feature.${fieldInfos.republican.county.previous.name};
                 var change = valueNext - valuePrevious;
                 var value = IIF( change < 0, Abs(change), 0);
-                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * 100;
+                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * $feature.${fieldInfos.normalizationFields.state.electoralVotes};
                 ${sizeExpressionBase}
               `,
               returnType: `Default`
@@ -560,7 +560,7 @@ export const countyChangeRenderer = () => {
                 var valuePrevious = $feature.${fieldInfos.other.county.previous.name};
                 var change = valueNext - valuePrevious;
                 var value = IIF( change > 0, change, 0);
-                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * 100;
+                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * $feature.${fieldInfos.normalizationFields.state.electoralVotes};
                 ${sizeExpressionBase}
               `,
               returnType: `Default`
@@ -578,7 +578,7 @@ export const countyChangeRenderer = () => {
                 var valuePrevious = $feature.${fieldInfos.other.county.previous.name};
                 var change = valueNext - valuePrevious;
                 var value = IIF( change < 0, Abs(change), 0);
-                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * 100;
+                var percentStateVotes = ( value / $feature.${fieldInfos.normalizationFields.county.next} ) * $feature.${fieldInfos.normalizationFields.state.electoralVotes};
                 ${sizeExpressionBase}
               `,
               returnType: `Default`
