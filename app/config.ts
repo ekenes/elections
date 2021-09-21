@@ -40,8 +40,19 @@ export const yearSlider = new Slider({
   tickConfigs: [{
     mode: "position",
     values: [ 2004, 2008, 2012, 2016, 2020 ],
-    labelsVisible: true
+    labelsVisible: true,
+    tickCreatedFunction: (value, tickElement, labelElement) => {
+      const setValue = () => {
+        yearSlider.values = [ value ];
+      };
+      tickElement.addEventListener("click", setValue);
+      tickElement.style.cursor = "pointer";
+      labelElement.addEventListener("click", setValue);
+      labelElement.style.cursor = "pointer";
+    }
   }]
+
+
 });
 
 if(!year){

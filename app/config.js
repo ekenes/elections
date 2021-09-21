@@ -30,7 +30,16 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
         tickConfigs: [{
                 mode: "position",
                 values: [2004, 2008, 2012, 2016, 2020],
-                labelsVisible: true
+                labelsVisible: true,
+                tickCreatedFunction: function (value, tickElement, labelElement) {
+                    var setValue = function () {
+                        exports.yearSlider.values = [value];
+                    };
+                    tickElement.addEventListener("click", setValue);
+                    tickElement.style.cursor = "pointer";
+                    labelElement.addEventListener("click", setValue);
+                    labelElement.style.cursor = "pointer";
+                }
             }]
     });
     if (!year) {
