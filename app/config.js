@@ -1,7 +1,7 @@
 define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (require, exports, Color, Slider) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var validYears = [2000, 2004, 2008, 2012, 2016, 2020];
+    var validYears = [2000, 2004, 2008, 2012, 2016, 2020, 2024];
     function getUrlParams() {
         var queryParams = document.location.search.substr(1);
         var result = {};
@@ -20,7 +20,7 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
     exports.yearSlider = new Slider({
         container: document.getElementById("slider"),
         min: 2004,
-        max: 2020,
+        max: 2024,
         visibleElements: {
             labels: false
         },
@@ -29,7 +29,7 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
         steps: 4,
         tickConfigs: [{
                 mode: "position",
-                values: [2004, 2008, 2012, 2016, 2020],
+                values: [2004, 2008, 2012, 2016, 2020, 2024],
                 labelsVisible: true,
                 tickCreatedFunction: function (value, tickElement, labelElement) {
                     var setValue = function () {
@@ -43,14 +43,14 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
             }]
     });
     if (!year) {
-        year = 2020;
+        year = 2024;
         setUrlParams(year);
         exports.yearSlider.values = [year];
     }
     else {
         if (year && validYears.indexOf(year) === -1) {
             alert("You must enter a valid U.S. presidential election year (e.g. 2004, 2008, 20012, 2016)");
-            year = 2020;
+            year = 2024;
             setUrlParams(year);
         }
         exports.yearSlider.values = [year];
@@ -151,6 +151,20 @@ define(["require", "exports", "esri/Color", "esri/widgets/Slider"], function (re
                 candidate: "Other",
                 electoralVotes: 0
             }
+        },
+        2024: {
+          republican: {
+            candidate: "Trump",
+            electoralVotes: 312
+          },
+          democrat: {
+            candidate: "Harris",
+            electoralVotes: 226
+          },
+          other: {
+            candidate: "Other",
+            electoralVotes: 0
+          }
         }
     };
     exports.fieldInfos = {

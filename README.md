@@ -1,4 +1,4 @@
-# Electoral swing: U.S. presidential elections 2000-2020
+# Electoral swing: U.S. presidential elections 2000-2024
 
 [This map](https://ekenes.github.io/elections/) uses composite symbols to visualize voting behaviors in the 2016 U.S. presidential election.
 
